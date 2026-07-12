@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssetFlow | Asset Ledger</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/tables.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-cubes"></i>
+                <h2>AssetFlow</h2>
+            </div>
+            <ul class="menu">
+                <li><a href="dashboard.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
+                <li class="active"><a href="assets.html"><i
+                            class="fa-solid fa-boxes-stacked"></i><span>Assets</span></a></li>
+                <li><a href="allocation.html"><i
+                            class="fa-solid fa-arrow-right-arrow-left"></i><span>Allocation</span></a></li>
+                <li><a href="booking.html"><i class="fa-solid fa-calendar-days"></i><span>Bookings</span></a></li>
+                <li><a href="maintenance.html"><i
+                            class="fa-solid fa-screwdriver-wrench"></i><span>Maintenance</span></a></li>
+                <li><a href="organization.html"><i class="fa-solid fa-building"></i><span>Organization</span></a></li>
+                <li><a href="audit.html"><i class="fa-solid fa-clipboard-check"></i><span>Audit</span></a></li>
+                <li><a href="reports.html"><i class="fa-solid fa-chart-column"></i><span>Reports</span></a></li>
+                <li><a href="notifications.html"><i class="fa-solid fa-bell"></i><span>Notifications</span></a></li>
+                <li><a href="activity-logs.html"><i class="fa-solid fa-list-ul"></i><span>Activity Logs</span></a></li>
+                <li><a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
+            </ul>
+        </aside>
+
+        <!-- MAIN -->
+        <div class="main">
+
+            <!-- NAVBAR -->
+            <header class="navbar">
+                <div class="left-nav">
+                    <button id="toggleSidebar"><i class="fa-solid fa-bars"></i></button>
+                    <h1>Asset Ledger</h1>
+                </div>
+
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="globalSearch" placeholder="Search product serial, cost, assignee..."
+                        oninput="filterAssets()">
+                </div>
+
+                <div class="right-nav">
+                    <button class="icon-btn" id="darkModeBtn"><i class="fa-solid fa-moon"></i></button>
+                    <div class="profile">
+                        <img src="https://i.pravatar.cc/150?img=12" alt="profile">
+                        <div>
+                            <h4>Het Patel</h4>
+                            <p>Administrator</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- CONTENT -->
+            <main class="content">
+
+                <div class="page-header">
+                    <div>
+                        <h2>Asset Register</h2>
+                        <p>Track hardware depreciation, current custody, status flags, and configurations.</p>
+                    </div>
+                    <div class="header-buttons">
+                        <a href="add-asset.html" class="primary-btn">
+                            <i class="fa-solid fa-plus"></i> Add New Asset
+                        </a>
+                    </div>
+                </div>
+
+                <!-- FILTERS WRAPPER -->
+                <div class="table-container" style="padding: 20px;">
+                    <div style="display:flex; gap:15px; flex-wrap:wrap; align-items:center;">
+                        <div style="flex:1; min-width:200px;">
+                            <label style="margin-bottom:6px; font-size:12px;">Category</label>
+                            <select id="filterCategory" onchange="filterAssets()"
+                                style="margin-bottom:0px; padding: 10px 14px;">
+                                <option value="">All Categories</option>
+                                <option value="Laptops">Laptops</option>
+                                <option value="Monitors">Monitors</option>
+                                <option value="Printers">Printers</option>
+                                <option value="Networking">Networking</option>
+                                <option value="Furniture">Furniture</option>
+                            </select>
+                        </div>
+
+                        <div style="flex:1; min-width:200px;">
+                            <label style="margin-bottom:6px; font-size:12px;">Status</label>
+                            <select id="filterStatus" onchange="filterAssets()"
+                                style="margin-bottom:0px; padding:10px 14px;">
+                                <option value="">All Statuses</option>
+                                <option value="Available">Available</option>
+                                <option value="Allocated">Allocated</option>
+                                <option value="Maintenance">Maintenance</option>
+                                <option value="Reserved">Reserved</option>
+                            </select>
+                        </div>
+
+                        <div style="display:flex; align-items:flex-end; height: 100%; margin-top:20px;">
+                            <button class="secondary-btn" style="padding: 10px 18px;" onclick="resetFilters()">Reset
+                                Filter</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ASSETS TABLE -->
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3 id="ledgerCount">Total Items: 0</h3>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table class="activity-table" id="assetsTable">
+                            <thead>
+                                <tr>
+                                    <th>Asset ID</th>
+                                    <th>Asset Name</th>
+                                    <th>Category</th>
+                                    <th>Cost Value</th>
+                                    <th>Current Status</th>
+                                    <th>Custodian Assigned</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Loaded dynamically from localStorage -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination footer design placeholder -->
+                    <div class="pagination">
+                        <span>Showing <strong id="visibleCount">0</strong> assets</span>
+                        <div class="pagination-pages">
+                            <span class="page-link active">1</span>
+                            <span class="page-link">2</span>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            loadAssetsLedger();
+        });
+
+        function loadAssetsLedger() {
+            const assets = JSON.parse(localStorage.getItem("af_assets")) || [];
+            const tbody = document.querySelector("#assetsTable tbody");
+            if (!tbody) return;
+
+            document.getElementById("ledgerCount").textContent = "Total Items: " + assets.length;
+
+            renderRows(assets);
+        }
+
+        function renderRows(assetsList) {
+            const tbody = document.querySelector("#assetsTable tbody");
+            tbody.innerHTML = "";
+
+            if (assetsList.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding:30px;">No assets match current criteria.</td></tr>';
+                document.getElementById("visibleCount").textContent = "0";
+                return;
+            }
+
+            assetsList.forEach(a => {
+                let statusColor = "blue";
+                if (a.status === "Available" || a.status === "available") statusColor = "green";
+                if (a.status === "Allocated" || a.status === "allocated") statusColor = "blue";
+                if (a.status === "Maintenance" || a.status === "maintenance") statusColor = "red";
+                if (a.status === "Reserved" || a.status === "reserved" || a.status === "Booking") statusColor = "orange";
+
+                tbody.innerHTML += `
+                <tr>
+                    <td class="asset-id" data-label="Asset ID"><a href="asset-details.html?id=${a.id}" style="color: inherit; font-weight:600; text-decoration:none;">${a.id}</a></td>
+                    <td data-label="Asset Name"><strong>${a.name}</strong></td>
+                    <td data-label="Category">${a.category || "General"}</td>
+                    <td data-label="Cost Value">$${a.cost.toLocaleString()}</td>
+                    <td data-label="Current Status"><span class="status ${statusColor}">${a.status}</span></td>
+                    <td data-label="Custodian Assigned">${a.assignee || '<span class="status gray" style="background:#F1F5F9; color:#94A3B8;">Unassigned</span>'}</td>
+                    <td data-label="Actions">
+                        <div class="actions">
+                            <a href="asset-details.html?id=${a.id}" class="btn-icon" title="View Details"><i class="fa-solid fa-eye"></i></a>
+                            <button class="btn-icon delete" onclick="deleteAsset('${a.id}')" title="Delete Asset"><i class="fa-solid fa-trash-can"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            `;
+            });
+
+            document.getElementById("visibleCount").textContent = assetsList.length;
+        }
+
+        function filterAssets() {
+            const assets = JSON.parse(localStorage.getItem("af_assets")) || [];
+            const searchQuery = document.getElementById("globalSearch").value.toLowerCase();
+            const catFilter = document.getElementById("filterCategory").value;
+            const statFilter = document.getElementById("filterStatus").value;
+
+            const filtered = assets.filter(a => {
+                const matchesSearch = a.id.toLowerCase().includes(searchQuery) ||
+                    a.name.toLowerCase().includes(searchQuery) ||
+                    (a.assignee && a.assignee.toLowerCase().includes(searchQuery)) ||
+                    (a.dept && a.dept.toLowerCase().includes(searchQuery));
+
+                const matchesCat = catFilter === "" ? true : a.category === catFilter;
+                const matchesStat = statFilter === "" ? true : a.status === statFilter;
+
+                return matchesSearch && matchesCat && matchesStat;
+            });
+
+            renderRows(filtered);
+        }
+
+        function resetFilters() {
+            document.getElementById("globalSearch").value = "";
+            document.getElementById("filterCategory").value = "";
+            document.getElementById("filterStatus").value = "";
+            loadAssetsLedger();
+        }
+
+        function deleteAsset(id) {
+            if (!confirm(`Are you sure you want to delete asset ${id}?`)) return;
+
+            let assets = JSON.parse(localStorage.getItem("af_assets")) || [];
+            const target = assets.find(a => a.id === id);
+
+            assets = assets.filter(a => a.id !== id);
+            localStorage.setItem("af_assets", JSON.stringify(assets));
+
+            // Log this action
+            if (target) {
+                logActivity("Deleted Asset Ledger Item", target.name, `Removed ID ${target.id} completely from active databases.`);
+            }
+
+            loadAssetsLedger();
+        }
+    </script>
+</body>
+
+</html>

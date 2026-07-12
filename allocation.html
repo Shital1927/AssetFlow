@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssetFlow | Allocations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/tables.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-cubes"></i>
+                <h2>AssetFlow</h2>
+            </div>
+            <ul class="menu">
+                <li><a href="dashboard.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
+                <li><a href="assets.html"><i class="fa-solid fa-boxes-stacked"></i><span>Assets</span></a></li>
+                <li class="active"><a href="allocation.html"><i
+                            class="fa-solid fa-arrow-right-arrow-left"></i><span>Allocation</span></a></li>
+                <li><a href="booking.html"><i class="fa-solid fa-calendar-days"></i><span>Bookings</span></a></li>
+                <li><a href="maintenance.html"><i
+                            class="fa-solid fa-screwdriver-wrench"></i><span>Maintenance</span></a></li>
+                <li><a href="organization.html"><i class="fa-solid fa-building"></i><span>Organization</span></a></li>
+                <li><a href="audit.html"><i class="fa-solid fa-clipboard-check"></i><span>Audit</span></a></li>
+                <li><a href="reports.html"><i class="fa-solid fa-chart-column"></i><span>Reports</span></a></li>
+                <li><a href="notifications.html"><i class="fa-solid fa-bell"></i><span>Notifications</span></a></li>
+                <li><a href="activity-logs.html"><i class="fa-solid fa-list-ul"></i><span>Activity Logs</span></a></li>
+                <li><a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
+            </ul>
+        </aside>
+
+        <!-- MAIN -->
+        <div class="main">
+
+            <!-- NAVBAR -->
+            <header class="navbar">
+                <div class="left-nav">
+                    <button id="toggleSidebar"><i class="fa-solid fa-bars"></i></button>
+                    <h1>Asset Allocation</h1>
+                </div>
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="allocSearch" placeholder="Search allocated custodian..."
+                        oninput="filterAllocations()">
+                </div>
+                <div class="right-nav">
+                    <button class="icon-btn" id="darkModeBtn"><i class="fa-solid fa-moon"></i></button>
+                    <div class="profile">
+                        <img src="https://i.pravatar.cc/150?img=12" alt="profile">
+                        <div>
+                            <h4>Het Patel</h4>
+                            <p>Administrator</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- CONTENT -->
+            <main class="content">
+
+                <div class="page-header">
+                    <div>
+                        <h2>Custody Handover Ledger</h2>
+                        <p>Track actively deployed items, perform returns, and dispatch new hardware allocations.</p>
+                    </div>
+                    <div class="header-buttons">
+                        <button class="primary-btn" onclick="openAllocModal()">
+                            <i class="fa-solid fa-share-from-square"></i> New Handover
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ALLOCATIONS TABLE -->
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Active Hardware Custodies</h3>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table class="activity-table" id="allocTable">
+                            <thead>
+                                <tr>
+                                    <th>Asset ID</th>
+                                    <th>Asset Name</th>
+                                    <th>Category</th>
+                                    <th>Employee Custodian</th>
+                                    <th>Department</th>
+                                    <th>Handover Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Loaded dynamically from localStorage assets -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- MODAL FOR NEW ALLOCATION -->
+                <div id="modalAlloc"
+                    style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.4); justify-content:center; align-items:center;">
+                    <div
+                        style="background:var(--bg-card); width:90%; max-width:550px; padding:35px; border-radius:var(--radius-lg); border:1px solid var(--border); box-shadow:var(--shadow-hover);">
+                        <div
+                            style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                            <h3 style="font-weight:700;">Allocate Asset Custody</h3>
+                            <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeAllocModal()"></i>
+                        </div>
+                        <form id="allocForm" onsubmit="event.preventDefault(); submitAllocForm()">
+
+                            <div class="form-group">
+                                <label for="selectAsset">Choose Available Device</label>
+                                <select id="selectAsset" required style="margin-bottom:15px;">
+                                    <option value="" disabled selected>No available assets</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="selectCustodian">Select Staff Custodian</label>
+                                <select id="selectCustodian" required style="margin-bottom:15px;">
+                                    <option value="" disabled selected>Select employee</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="allocDate">Handover Effective Date</label>
+                                <input type="date" id="allocDate" required style="margin-bottom:15px;">
+                            </div>
+
+                            <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:20px;">
+                                <button type="button" class="secondary-btn" onclick="closeAllocModal()">Cancel</button>
+                                <button type="submit" class="primary-btn">Complete Handover</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            loadAllocationsList();
+            populateAllocSelectors();
+            checkRedirectParams();
+        });
+
+        function loadAllocationsList() {
+            const assets = JSON.parse(localStorage.getItem("af_assets")) || [];
+            const tbody = document.querySelector("#allocTable tbody");
+            if (!tbody) return;
+
+            // FIlter assets whose status is "Allocated"
+            const allocated = assets.filter(a => a.status === "Allocated" || a.status === "allocated");
+
+            tbody.innerHTML = "";
+            if (allocated.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding:30px;">No active device custody allocations detected.</td></tr>';
+                return;
+            }
+
+            allocated.forEach(a => {
+                tbody.innerHTML += `
+                <tr>
+                    <td class="asset-id" data-label="Asset ID"><a href="asset-details.html?id=${a.id}" style="color: inherit; text-decoration:none; font-weight:600;">${a.id}</a></td>
+                    <td data-label="Asset Name"><strong>${a.name}</strong></td>
+                    <td data-label="Category">${a.category || "General"}</td>
+                    <td data-label="Custodian">${a.assignee}</td>
+                    <td data-label="Department">${a.dept}</td>
+                    <td data-label="Handover Date">${a.date || '12 Jul 2026'}</td>
+                    <td data-label="Action">
+                        <button class="primary-btn" style="padding: 6px 12px; font-size:12px; background:var(--primary);" onclick="returnAllocatedAsset('${a.id}')">
+                            <i class="fa-solid fa-rotate-left"></i> Return Asset
+                        </button>
+                    </td>
+                </tr>
+            `;
+            });
+        }
+
+        function populateAllocSelectors() {
+            const assets = JSON.parse(localStorage.getItem("af_assets")) || [];
+            const employees = JSON.parse(localStorage.getItem("af_employees")) || [];
+
+            // 1. Available assets dropdown
+            const assetSelect = document.getElementById("selectAsset");
+            const available = assets.filter(a => a.status === "Available" || a.status === "available");
+
+            assetSelect.innerHTML = '<option value="" disabled selected>Choose Available Device</option>';
+            available.forEach(a => {
+                assetSelect.innerHTML += `<option value="${a.id}">${a.id} - ${a.name} (${a.category})</option>`;
+            });
+
+            // 2. Employees dropdown
+            const custodianSelect = document.getElementById("selectCustodian");
+            custodianSelect.innerHTML = '<option value="" disabled selected>Select Staff Custodian</option>';
+            employees.forEach(emp => {
+                custodianSelect.innerHTML += `<option value="${emp.name}">${emp.name} (${emp.dept})</option>`;
+            });
+
+            // Set default date to today
+            document.getElementById("allocDate").value = new Date().toISOString().split('T')[0];
+        }
+
+        function checkRedirectParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const presetId = urlParams.get('assetId');
+            if (presetId) {
+                openAllocModal();
+                // Try to select option
+                const assetSelect = document.getElementById("selectAsset");
+
+                // If asset isn't available in dropdown because it's already allocated or in repair:
+                // add it as a temporary option so select works
+                let optionExists = false;
+                for (let i = 0; i < assetSelect.options.length; i++) {
+                    if (assetSelect.options[i].value === presetId) {
+                        optionExists = true;
+                        break;
+                    }
+                }
+
+                if (!optionExists) {
+                    const assets = JSON.parse(localStorage.getItem("af_assets")) || [];
+                    const matched = assets.find(a => a.id === presetId);
+                    if (matched) {
+                        const opt = document.createElement("option");
+                        opt.value = matched.id;
+                        opt.text = `${matched.id} - ${matched.name} (Current Status: ${matched.status})`;
+                        assetSelect.add(opt);
+                    }
+                }
+
+                assetSelect.value = presetId;
+            }
+        }
+
+        function openAllocModal() {
+            document.getElementById("modalAlloc").style.display = "flex";
+        }
+
+        function closeAllocModal() {
+            document.getElementById("modalAlloc").style.display = "none";
+            document.getElementById("allocForm").reset();
+            populateAllocSelectors(); // Reload selections
+        }
+
+        function submitAllocForm() {
+            const assetId = document.getElementById("selectAsset").value;
+            const employeeName = document.getElementById("selectCustodian").value;
+            const rawDate = document.getElementById("allocDate").value;
+
+            // Sync with localstorage
+            const assets = JSON.parse(localStorage.getItem("af_assets")) || [];
+            const employees = JSON.parse(localStorage.getItem("af_employees")) || [];
+
+            const assetIdx = assets.findIndex(a => a.id === assetId);
+            const emp = employees.find(e => e.name === employeeName);
+
+            if (assetIdx !== -1 && emp) {
+                // Format design date
+                const formattedDate = new Date(rawDate).toLocaleDateString('en-GB', {
+                    day: '2-digit', month: 'short', year: 'numeric'
+                });
+
+                assets[assetIdx].status = "Allocated";
+                assets[assetIdx].assignee = employeeName;
+                assets[assetIdx].dept = emp.dept;
+                assets[assetIdx].date = formattedDate;
+
+                localStorage.setItem("af_assets", JSON.stringify(assets));
+
+                // Log activity audit trail
+                logActivity("Deploys Handover Custody", assets[assetIdx].name, `Assigned ID ${assetId} to ${employeeName} (${emp.dept}).`);
+
+                alert(`Asset ${assetId} assigned to ${employeeName} successfully!`);
+                closeAllocModal();
+                loadAllocationsList();
+            }
+        }
+
+        function returnAllocatedAsset(id) {
+            if (!confirm(`Are you sure you want to return asset ${id} to inventory catalog?`)) return;
+
+            const assets = JSON.parse(localStorage.getItem("af_assets")) || [];
+            const idx = assets.findIndex(a => a.id === id);
+
+            if (idx !== -1) {
+                const returnedItem = assets[idx];
+                assets[idx].status = "Available";
+                assets[idx].assignee = "";
+                assets[idx].dept = "";
+                localStorage.setItem("af_assets", JSON.stringify(assets));
+
+                // Log activity
+                logActivity("Returned Asset to Shelf Storage", returnedItem.name, `Asset ID ${id} custody released to Available pool.`);
+
+                loadAllocationsList();
+                populateAllocSelectors(); // Refresh dropdown
+            }
+        }
+
+        function filterAllocations() {
+            const query = document.getElementById("allocSearch").value.toLowerCase();
+            const rows = document.querySelectorAll("#allocTable tbody tr");
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(query) ? "" : "none";
+            });
+        }
+    </script>
+</body>
+
+</html>
