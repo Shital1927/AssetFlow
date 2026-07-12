@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssetFlow | Ticket Details</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-cubes"></i>
+                <h2>AssetFlow</h2>
+            </div>
+            <ul class="menu">
+                <li><a href="dashboard.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
+                <li><a href="assets.html"><i class="fa-solid fa-boxes-stacked"></i><span>Assets</span></a></li>
+                <li><a href="allocation.html"><i
+                            class="fa-solid fa-arrow-right-arrow-left"></i><span>Allocation</span></a></li>
+                <li><a href="booking.html"><i class="fa-solid fa-calendar-days"></i><span>Bookings</span></a></li>
+                <li class="active"><a href="maintenance.html"><i
+                            class="fa-solid fa-screwdriver-wrench"></i><span>Maintenance</span></a></li>
+                <li><a href="organization.html"><i class="fa-solid fa-building"></i><span>Organization</span></a></li>
+                <li><a href="audit.html"><i class="fa-solid fa-clipboard-check"></i><span>Audit</span></a></li>
+                <li><a href="reports.html"><i class="fa-solid fa-chart-column"></i><span>Reports</span></a></li>
+                <li><a href="notifications.html"><i class="fa-solid fa-bell"></i><span>Notifications</span></a></li>
+                <li><a href="activity-logs.html"><i class="fa-solid fa-list-ul"></i><span>Activity Logs</span></a></li>
+                <li><a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
+            </ul>
+        </aside>
+
+        <!-- MAIN -->
+        <div class="main">
+
+            <!-- NAVBAR -->
+            <header class="navbar">
+                <div class="left-nav">
+                    <button id="toggleSidebar"><i class="fa-solid fa-bars"></i></button>
+                    <h1>Ticket Resolution Worksheet</h1>
+                </div>
+
+                <div class="right-nav">
+                    <button class="icon-btn" id="darkModeBtn"><i class="fa-solid fa-moon"></i></button>
+                    <div class="profile">
+                        <img src="https://i.pravatar.cc/150?img=12" alt="profile">
+                        <div>
+                            <h4>Het Patel</h4>
+                            <p>Administrator</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- CONTENT -->
+            <main class="content animate-fade-up">
+
+                <div class="page-header">
+                    <div>
+                        <h2>Technician Resolution Worksheet</h2>
+                        <p>Review repair progress reports, update diagnostic states, and close incidents.</p>
+                    </div>
+                    <div class="header-buttons">
+                        <a href="maintenance.html" class="secondary-btn">
+                            <i class="fa-solid fa-arrow-left"></i> Return Tickets
+                        </a>
+                    </div>
+                </div>
+
+                <!-- DETAIL LAYOUT -->
+                <div class="profile-layout"
+                    style="display:grid; grid-template-columns: 1fr 2fr; gap: 30px; align-items: start;">
+
+                    <!-- Left panel: incident highlights -->
+                    <div class="profile-card" style="padding:30px;">
+                        <div class="avatar-upload" style="margin-bottom:20px;">
+                            <i class="fa-solid fa-toolbox" style="font-size:62px; color:var(--red);"></i>
+                        </div>
+                        <h2 id="ticId">MNT-XXX</h2>
+                        <p class="role" id="ticName">Device Name</p>
+
+                        <div style="margin-top:25px; border-top:1px solid var(--border); padding-top:20px; width:100%;">
+                            <div
+                                style="display:flex; justify-content:space-between; margin-bottom: 12px; font-size:14px;">
+                                <span style="color:var(--text-secondary);">Ticket Status:</span>
+                                <span id="ticStatus" class="status red">In Progress</span>
+                            </div>
+                            <div
+                                style="display:flex; justify-content:space-between; margin-bottom:12px; font-size:14px;">
+                                <span style="color:var(--text-secondary);">Asset ID:</span>
+                                <span id="ticAssetId" style="font-weight:600;">AST-1003</span>
+                            </div>
+                            <div
+                                style="display:flex; justify-content:space-between; margin-bottom: 12px; font-size:14px;">
+                                <span style="color:var(--text-secondary);">Logging Date:</span>
+                                <span id="ticDate">2026-07-11</span>
+                            </div>
+                            <div
+                                style="display:flex; justify-content:space-between; margin-bottom: 12px; font-size:14px;">
+                                <span style="color:var(--text-secondary);">Billing Cost:</span>
+                                <span id="ticCost" style="font-weight:600;">$0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right panel: Resolution and notes -->
+                    <div class="profile-details" style="padding:30px;">
+                        <h3 style="margin-bottom:20px; font-weight:700;">Diagnostic Notes & Symptoms</h3>
+                        <div
+                            style="background:var(--bg-main); border:1px solid var(--border); padding:20px; border-radius:var(--radius-sm); margin-bottom:25px;">
+                            <p id="ticSymptoms" style="font-size:14px; line-height:1.6; color:var(--text-secondary);">
+                                No symptoms records found.
+                            </p>
+                        </div>
+
+                        <!-- RESOLVE CONTAINER FORM -->
+                        <div id="maintActionBlock">
+                            <h3 style="margin-bottom:15px; font-weight:700;">Resolution Action Form</h3>
+                            <form id="resolveForm" onsubmit="event.preventDefault(); submitResolution()">
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="updateStatus">Incident Status</label>
+                                        <select id="updateStatus" onchange="toggleResolutionFields()"
+                                            style="margin-bottom:15px;">
+                                            <option value="In Progress">In Progress</option>
+                                            <option value="Pending Parts">Pending Parts</option>
+                                            <option value="Completed">Completed / Resolved</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="finalCost">Final Resolution Billing Code ($)</label>
+                                        <input type="number" id="finalCost" min="0" required
+                                            style="margin-bottom:15px;">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="resolutionNotes">Resolution Summary & Repairs Completed</label>
+                                    <textarea id="resolutionNotes" rows="4"
+                                        placeholder="Mention work done, serials replaced..."
+                                        style="width:100%; padding:12px; border:1px solid var(--border); border-radius:var(--radius-sm); resize:vertical;"
+                                        required></textarea>
+                                </div>
+
+                                <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:20px;">
+                                    <button type="submit" class="primary-btn"
+                                        style="background:#22C55E; border-color:#22C55E;">
+                                        <i class="fa-solid fa-clipboard-check"></i> Save Technical Updates
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- RESOLVED SUCCESS PANEL -->
+                        <div id="resolvedPanel"
+                            style="display:none; text-align:center; padding:30px 10px; background:#F0FDF4; border:1px dashed #22C55E; border-radius:var(--radius-sm);">
+                            <i class="fa-regular fa-circle-check"
+                                style="font-size:48px; color:#22C55E; margin-bottom:12px;"></i>
+                            <h4 style="font-weight:700; color:#14532D; margin-bottom:8px;">Ticket Closed Successfully
+                            </h4>
+                            <p style="font-size:13px; color:#1C6438; max-width:400px; margin:0 auto;"
+                                id="resolvedSummaryText">
+                                This asset has returned to fully operational states and checked back into global
+                                inventories supplies.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        let activeTicket = null;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            loadTicketDetails();
+        });
+
+        function loadTicketDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const ticketId = urlParams.get('id');
+
+            if (!ticketId) {
+                alert("No Ticket ID specified.");
+                window.location.href = "maintenance.html";
+                return;
+            }
+
+            const maint = JSON.parse(localStorage.getItem("af_maintenance")) || [];
+            activeTicket = maint.find(t => t.id === ticketId);
+
+            if (!activeTicket) {
+                alert(`Ticket ID ${ticketId} not found in technical databases.`);
+                window.location.href = "maintenance.html";
+                return;
+            }
+
+            // Populate details
+            document.getElementById("ticId").textContent = activeTicket.id;
+            document.getElementById("ticName").textContent = activeTicket.name;
+            document.getElementById("ticAssetId").textContent = activeTicket.assetId;
+            document.getElementById("ticDate").textContent = activeTicket.date || "2026-07-12";
+            document.getElementById("ticCost").textContent = "$" + activeTicket.cost.toLocaleString();
+            document.getElementById("ticSymptoms").textContent = activeTicket.notes || "No log details uploaded.";
+
+            document.getElementById("updateStatus").value = activeTicket.status;
+            document.getElementById("finalCost").value = activeTicket.cost;
+
+            const statusEl = document.getElementById("ticStatus");
+            statusEl.textContent = activeTicket.status;
+
+            let statusColor = "red";
+            if (activeTicket.status === "Completed") {
+                statusColor = "green";
+                document.getElementById("maintActionBlock").style.display = "none";
+                document.getElementById("resolvedPanel").style.display = "block";
+                document.getElementById("resolvedSummaryText").textContent = `Resolved Ticket notes: ${activeTicket.resolution || 'Incident resolved. Checked back into assets supply storage.'}`;
+            } else if (activeTicket.status === "Pending Parts") {
+                statusColor = "orange";
+            }
+            statusEl.className = "status " + statusColor;
+        }
+
+        function toggleResolutionFields() {
+            // Aesthetic change on select status
+        }
+
+        function submitResolution() {
+            if (!activeTicket) return;
+
+            const statusVal = document.getElementById("updateStatus").value;
+            const costVal = parseFloat(document.getElementById("finalCost").value);
+            const notesVal = document.getElementById("resolutionNotes").value;
+
+            // Sync tickets
+            const maint = JSON.parse(localStorage.getItem("af_maintenance")) || [];
+            const idx = maint.findIndex(t => t.id === activeTicket.id);
+
+            if (idx !== -1) {
+                maint[idx].status = statusVal;
+                maint[idx].cost = costVal;
+                maint[idx].notes = activeTicket.notes + `\n[Update]: ` + notesVal;
+                maint[idx].resolution = notesVal;
+
+                localStorage.setItem("af_maintenance", JSON.stringify(maint));
+
+                // If COMPLETED, release the asset back to "Available"
+                if (statusVal === "Completed") {
+                    const assets = JSON.parse(localStorage.getItem("af_assets")) || [];
+                    const assetIdx = assets.findIndex(a => a.id === activeTicket.assetId);
+
+                    if (assetIdx !== -1) {
+                        assets[assetIdx].status = "Available";
+                        localStorage.setItem("af_assets", JSON.stringify(assets));
+
+                        logActivity("Completed Maintenance Repairs", activeTicket.name, `Incident ticket ${activeTicket.id} closed and marked resolved with repair spending $${costVal.toLocaleString()}.`);
+                    }
+                } else {
+                    logActivity("Updated Tech Status", activeTicket.name, `Incident ticket ${activeTicket.id} moved status to ${statusVal}.`);
+                }
+
+                alert(`Ticket details have been logged and updated.`);
+                window.location.reload();
+            }
+        }
+    </script>
+</body>
+
+</html>
