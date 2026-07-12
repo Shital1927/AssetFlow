@@ -1,0 +1,216 @@
+/*====================================================
+        ASSETFLOW CARDS & WIDGETS
+        Premium KPI Cards
+=====================================================*/
+
+/* ─── Grid ─── */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 28px;
+}
+
+/* ─── Card Base ─── */
+.card {
+    background: var(--bg-card);
+    border-radius: 28px;
+    padding: 28px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, .7);
+    animation: fadeUp .6s ease forwards;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.card h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.card h2 {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -1px;
+}
+
+/* ─── Icon ─── */
+.card-icon {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    font-size: 26px;
+    color: #fff;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .1);
+}
+
+/* ─── Progress ─── */
+.progress {
+    height: 10px;
+    background: #EEF2F7;
+    border-radius: 50px;
+    margin: 18px 0;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    border-radius: 50px;
+    transition: width 1.2s ease;
+}
+
+.card p {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+/* ─── Color Themes ─── */
+.blue::before {
+    background: var(--gradient-primary);
+}
+
+.blue .card-icon {
+    background: var(--gradient-primary);
+}
+
+.blue .progress-bar {
+    background: var(--gradient-primary);
+}
+
+.green::before {
+    background: var(--gradient-success);
+}
+
+.green .card-icon {
+    background: var(--gradient-success);
+}
+
+.green .progress-bar {
+    background: var(--gradient-success);
+}
+
+.orange::before {
+    background: var(--gradient-warning);
+}
+
+.orange .card-icon {
+    background: var(--gradient-warning);
+}
+
+.orange .progress-bar {
+    background: var(--gradient-warning);
+}
+
+.red::before {
+    background: var(--gradient-danger);
+}
+
+.red .card-icon {
+    background: var(--gradient-danger);
+}
+
+.red .progress-bar {
+    background: var(--gradient-danger);
+}
+
+.purple::before {
+    background: var(--gradient-purple);
+}
+
+.purple .card-icon {
+    background: var(--gradient-purple);
+}
+
+.purple .progress-bar {
+    background: var(--gradient-purple);
+}
+
+.cyan::before {
+    background: var(--gradient-cyan);
+}
+
+.cyan .card-icon {
+    background: var(--gradient-cyan);
+}
+
+.cyan .progress-bar {
+    background: var(--gradient-cyan);
+}
+
+/* ─── Hover Effect ─── */
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-hover);
+}
+
+.card:hover .card-icon {
+    animation: floatIcon 1.2s infinite;
+}
+
+@keyframes floatIcon {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+/* ─── Shine Sweep ─── */
+.card::after {
+    content: "";
+    position: absolute;
+    top: -40%;
+    left: -120%;
+    width: 100px;
+    height: 220%;
+    background: rgba(255, 255, 255, .2);
+    transform: rotate(25deg);
+    transition: .8s;
+}
+
+.card:hover::after {
+    left: 130%;
+}
+
+/* ─── Fade Up Animation ─── */
+@keyframes fadeUp {
+    0% {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

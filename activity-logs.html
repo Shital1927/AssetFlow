@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssetFlow | Activity Logs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/tables.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-cubes"></i>
+                <h2>AssetFlow</h2>
+            </div>
+            <ul class="menu">
+                <li><a href="dashboard.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
+                <li><a href="assets.html"><i class="fa-solid fa-boxes-stacked"></i><span>Assets</span></a></li>
+                <li><a href="allocation.html"><i
+                            class="fa-solid fa-arrow-right-arrow-left"></i><span>Allocation</span></a></li>
+                <li><a href="booking.html"><i class="fa-solid fa-calendar-days"></i><span>Bookings</span></a></li>
+                <li><a href="maintenance.html"><i
+                            class="fa-solid fa-screwdriver-wrench"></i><span>Maintenance</span></a></li>
+                <li><a href="organization.html"><i class="fa-solid fa-building"></i><span>Organization</span></a></li>
+                <li><a href="audit.html"><i class="fa-solid fa-clipboard-check"></i><span>Audit</span></a></li>
+                <li><a href="reports.html"><i class="fa-solid fa-chart-column"></i><span>Reports</span></a></li>
+                <li><a href="notifications.html"><i class="fa-solid fa-bell"></i><span>Notifications</span></a></li>
+                <li class="active"><a href="activity-logs.html"><i class="fa-solid fa-list-ul"></i><span>Activity
+                            Logs</span></a></li>
+                <li><a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
+            </ul>
+        </aside>
+
+        <!-- MAIN -->
+        <div class="main">
+
+            <!-- NAVBAR -->
+            <header class="navbar">
+                <div class="left-nav">
+                    <button id="toggleSidebar"><i class="fa-solid fa-bars"></i></button>
+                    <h1>Global Activity Logs</h1>
+                </div>
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="logSearch" placeholder="Search activities..." oninput="filterLogs()">
+                </div>
+                <div class="right-nav">
+                    <button class="icon-btn" id="darkModeBtn"><i class="fa-solid fa-moon"></i></button>
+                    <div class="profile">
+                        <img src="https://i.pravatar.cc/150?img=12" alt="profile">
+                        <div>
+                            <h4> </h4>
+                            <p>Administrator</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- CONTENT -->
+            <main class="content animate-fade-up">
+
+                <div class="page-header">
+                    <div>
+                        <h2>System Audit Trail Log</h2>
+                        <p>Track chronological change events, database mutations, and system state transitions.</p>
+                    </div>
+                    <div class="header-buttons">
+                        <button class="secondary-btn" style="color:#EF4444; border-color:#EF4444;"
+                            onclick="clearLogsTrail()">
+                            Clear Audit Trail
+                        </button>
+                    </div>
+                </div>
+
+                <!-- LOGS TABLE LIST -->
+                <div class="table-container">
+                    <div class="table-header" style="justify-content: space-between;">
+                        <h3>Recorded Operations Timeline</h3>
+                        <div>
+                            <select id="logActionFilter" onchange="filterLogs()"
+                                style="padding: 6px 12px; border-radius: var(--radius-sm); border:1px solid var(--border); font-size:12px; background:var(--bg-card); color:var(--text-main);">
+                                <option value="All">All Operations</option>
+                                <option value="Registered">Asset Registry</option>
+                                <option value="Handover">Custodian Handover</option>
+                                <option value="Maintenance">Maintenance Logs</option>
+                                <option value="Audit">Reconciliation Compliance</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="overflow-x: auto;">
+                        <table class="activity-table" id="activityTable">
+                            <thead>
+                                <tr>
+                                    <th>Timestamp</th>
+                                    <th>Operation / Trigger</th>
+                                    <th>Asset Object</th>
+                                    <th>Activity Diagnostic Summary</th>
+                                    <th>Executor Role</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Loaded dynamically from localStorage/mock -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            loadActivityLogsList();
+        });
+
+        function loadActivityLogsList() {
+            const logs = JSON.parse(localStorage.getItem("af_activity_logs")) || [];
+            const tbody = document.querySelector("#activityTable tbody");
+            if (!tbody) return;
+
+            tbody.innerHTML = "";
+            if (logs.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding:30px;">No operational events found in system logs.</td></tr>';
+                return;
+            }
+
+            logs.forEach(l => {
+                tbody.innerHTML += `
+                <tr>
+                    <td data-label="Timestamp" style="font-size:12px; color:var(--text-muted); white-space:nowrap;">${l.time}</td>
+                    <td data-label="Operation"><strong>${l.action}</strong></td>
+                    <td data-label="Asset Object" style="font-weight:600;">${l.asset}</td>
+                    <td data-label="Details" style="font-size:13px; color:var(--text-secondary);">${l.details}</td>
+                    <td data-label="Executor" style="font-size:12px;"><i class="fa-solid fa-user-shield"></i> Admin ( )</td>
+                </tr>
+            `;
+            });
+        }
+
+        function clearLogsTrail() {
+            if (!confirm("Are you sure you want to permanently delete the audit trail history?")) return;
+            localStorage.setItem("af_activity_logs", JSON.stringify([]));
+            loadActivityLogsList();
+        }
+
+        function filterLogs() {
+            const query = document.getElementById("logSearch").value.toLowerCase();
+            const actionType = document.getElementById("logActionFilter").value;
+            const rows = document.querySelectorAll("#activityTable tbody tr");
+
+            rows.forEach(row => {
+                const cells = row.querySelectorAll("td");
+                if (cells.length < 4) return;
+
+                const matchesQuery = row.innerText.toLowerCase().includes(query);
+
+                // Check operation action tag filter match
+                let matchesAction = true;
+                if (actionType !== "All") {
+                    const actionText = cells[1].innerText.toLowerCase();
+                    if (actionType === "Registered") matchesAction = actionText.includes("register") || actionText.includes("add");
+                    else if (actionType === "Handover") matchesAction = actionText.includes("handover") || actionText.includes("alloc") || actionText.includes("return");
+                    else if (actionType === "Maintenance") matchesAction = actionText.includes("repair") || actionText.includes("maint") || actionText.includes("incident");
+                    else if (actionType === "Audit") matchesAction = actionText.includes("compliance") || actionText.includes("audit") || actionText.includes("reconcile");
+                }
+
+                row.style.display = (matchesQuery && matchesAction) ? "" : "none";
+            });
+        }
+    </script>
+</body>
+
+</html>

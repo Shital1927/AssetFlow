@@ -1,0 +1,236 @@
+/*====================================================
+        ASSETFLOW TABLE SYSTEM
+        Premium Data Tables
+=====================================================*/
+
+.table-container {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: 28px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.table-container:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.table-header h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.table-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+/* ─── Table Base ─── */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+thead {
+    background: var(--bg-main);
+}
+
+th {
+    padding: 16px 18px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+    border-bottom: 2px solid var(--border);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+td {
+    padding: 18px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-light);
+}
+
+tbody tr {
+    transition: var(--transition);
+}
+
+tbody tr:hover {
+    background: var(--primary-light);
+    transform: scale(1.005);
+}
+
+/* Asset ID highlight */
+td.asset-id {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 13px;
+    letter-spacing: .3px;
+}
+
+/* ─── Status Badges ─── */
+.status {
+    padding: 7px 14px;
+    border-radius: 40px;
+    font-size: 12px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.status::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    display: inline-block;
+    animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .4;
+    }
+}
+
+.status.green {
+    background: var(--success-light);
+    color: #166534;
+}
+
+.status.green::before {
+    background: var(--success);
+}
+
+.status.orange {
+    background: var(--warning-light);
+    color: #92400E;
+}
+
+.status.orange::before {
+    background: var(--warning);
+}
+
+.status.red {
+    background: var(--danger-light);
+    color: #991B1B;
+}
+
+.status.red::before {
+    background: var(--danger);
+}
+
+.status.blue {
+    background: var(--primary-light);
+    color: #1E40AF;
+}
+
+.status.blue::before {
+    background: var(--primary);
+}
+
+.status.purple {
+    background: var(--purple-light);
+    color: #6D28D9;
+}
+
+.status.purple::before {
+    background: var(--purple);
+}
+
+/* ─── Table Action Buttons ─── */
+.actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    font-size: 14px;
+}
+
+.btn-icon:hover {
+    background: var(--primary-light);
+    color: var(--primary);
+    border-color: var(--primary);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(37, 99, 235, .15);
+}
+
+.btn-icon.delete:hover {
+    background: var(--danger-light);
+    color: var(--danger);
+    border-color: var(--danger);
+    box-shadow: 0 8px 16px rgba(239, 68, 68, .15);
+}
+
+/* ─── Pagination ─── */
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border-light);
+}
+
+.pagination-pages {
+    display: flex;
+    gap: 8px;
+}
+
+.page-link {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    transition: var(--transition);
+}
+
+.page-link:hover,
+.page-link.active {
+    background: var(--gradient-primary);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 8px 20px rgba(37, 99, 235, .25);
+    transform: translateY(-2px);
+}

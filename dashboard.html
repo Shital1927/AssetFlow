@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssetFlow | Admin Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Link Modular CSS Architecture -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/cards.css">
+    <link rel="stylesheet" href="css/tables.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <!-- ChartJS Dependency -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <!-- ================= SIDEBAR ================= -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-cubes"></i>
+                <h2>AssetFlow</h2>
+            </div>
+            <ul class="menu">
+                <li class="active">
+                    <a href="dashboard.html">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="assets.html">
+                        <i class="fa-solid fa-boxes-stacked"></i>
+                        <span>Assets</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="allocation.html">
+                        <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                        <span>Allocation</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="booking.html">
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <span>Bookings</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="maintenance.html">
+                        <i class="fa-solid fa-screwdriver-wrench"></i>
+                        <span>Maintenance</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="organization.html">
+                        <i class="fa-solid fa-building"></i>
+                        <span>Organization</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="audit.html">
+                        <i class="fa-solid fa-clipboard-check"></i>
+                        <span>Audit</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="reports.html">
+                        <i class="fa-solid fa-chart-column"></i>
+                        <span>Reports</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="notifications.html">
+                        <i class="fa-solid fa-bell"></i>
+                        <span>Notifications</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="activity-logs.html">
+                        <i class="fa-solid fa-list-ul"></i>
+                        <span>Activity Logs</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="settings.html">
+                        <i class="fa-solid fa-gear"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- ================= MAIN CONTENT ================= -->
+        <div class="main">
+
+            <!-- NAVBAR -->
+            <header class="navbar">
+                <div class="left-nav">
+                    <button id="toggleSidebar">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <h1>Dashboard</h1>
+                </div>
+
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search assets, employees...">
+                </div>
+
+                <div class="right-nav">
+                    <button class="icon-btn" id="darkModeBtn">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                    <a href="notifications.html" class="icon-btn" id="notificationBtn"
+                        style="color: inherit; text-decoration: none;">
+                        <i class="fa-solid fa-bell"></i>
+                        <span class="badge">3</span>
+                    </a>
+                    <div class="profile">
+                        <img src="https://i.pravatar.cc/150?img=12" alt="profile">
+                        <div>
+                            <p>Administrator</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- PAGE CONTENT -->
+            <main class="content">
+
+                <div class="page-header">
+                    <div>
+                        <h2>Welcome Back 👋</h2>
+                        <p>Here's what's happening with your organization's assets today.</p>
+                    </div>
+                    <div class="header-buttons">
+                        <a href="add-asset.html" class="primary-btn">
+                            <i class="fa-solid fa-plus"></i>
+                            Register Asset
+                        </a>
+                        <a href="reports.html" class="secondary-btn">
+                            <i class="fa-solid fa-file-arrow-down"></i>
+                            Export Report
+                        </a>
+                    </div>
+                </div>
+
+                <!-- STATISTICS CARDS -->
+                <section class="cards">
+
+                    <!-- Card 1 -->
+                    <div class="card blue">
+                        <div class="card-top">
+                            <div>
+                                <h4>Total Assets</h4>
+                                <h2 id="count-total">0</h2>
+                            </div>
+                            <div class="card-icon">
+                                <i class="fa-solid fa-boxes-stacked"></i>
+                            </div>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" id="bar-total" style="width:0%"></div>
+                        </div>
+                        <p>
+                            <i class="fa-solid fa-arrow-trend-up"></i>
+                            Overall listed inventory count
+                        </p>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="card green">
+                        <div class="card-top">
+                            <div>
+                                <h4>Available</h4>
+                                <h2 id="count-available">0</h2>
+                            </div>
+                            <div class="card-icon">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" id="bar-available" style="width:0%"></div>
+                        </div>
+                        <p>
+                            <i class="fa-solid fa-check"></i>
+                            Ready for instant allocation
+                        </p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="card orange">
+                        <div class="card-top">
+                            <div>
+                                <h4>Allocated</h4>
+                                <h2 id="count-allocated">0</h2>
+                            </div>
+                            <div class="card-icon">
+                                <i class="fa-solid fa-user-check"></i>
+                            </div>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" id="bar-allocated" style="width:0%"></div>
+                        </div>
+                        <p>
+                            <i class="fa-solid fa-users"></i>
+                            Assigned to corporate staff
+                        </p>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="card red">
+                        <div class="card-top">
+                            <div>
+                                <h4>In Repair</h4>
+                                <h2 id="count-maintenance">0</h2>
+                            </div>
+                            <div class="card-icon">
+                                <i class="fa-solid fa-screwdriver-wrench"></i>
+                            </div>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" id="bar-maintenance" style="width:0%"></div>
+                        </div>
+                        <p>
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            Needs technician attention
+                        </p>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="card purple">
+                        <div class="card-top">
+                            <div>
+                                <h4>Bookings</h4>
+                                <h2 id="count-bookings">0</h2>
+                            </div>
+                            <div class="card-icon">
+                                <i class="fa-solid fa-calendar-days"></i>
+                            </div>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" id="bar-bookings" style="width:0%"></div>
+                        </div>
+                        <p>
+                            <i class="fa-solid fa-clock"></i>
+                            Scheduled reservations
+                        </p>
+                    </div>
+
+                </section>
+
+                <!-- CHARTS SECTION -->
+                <section class="dashboard-grid">
+
+                    <div class="left-column">
+                        <div class="chart-card">
+                            <div class="card-header">
+                                <h3>Asset Category Distribution</h3>
+                                <a href="reports.html" class="view-btn">Full Report</a>
+                            </div>
+                            <div style="position: relative; height: 320px;">
+                                <canvas id="assetCategoryChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="right-column">
+                        <div class="chart-card">
+                            <div class="card-header">
+                                <h3>Asset Status Overview</h3>
+                            </div>
+                            <div style="position: relative; height: 320px;">
+                                <canvas id="assetStatusChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+
+                <!-- DETAILED GRID -->
+                <section class="recent-section">
+
+                    <div class="recent-activity">
+                        <div class="card-header">
+                            <div>
+                                <h3>Recent Systems Activity</h3>
+                                <p>Latest updates across the asset directories</p>
+                            </div>
+                            <a href="activity-logs.html" class="view-btn">View Master Log</a>
+                        </div>
+                        <div style="overflow-x: auto;">
+                            <table class="activity-table">
+                                <thead>
+                                    <tr>
+                                        <th>Event ID</th>
+                                        <th>Asset Target</th>
+                                        <th>Performed By</th>
+                                        <th>Action Logged</th>
+                                        <th>Status Tag</th>
+                                        <th>Logged Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Loaded dynamically via js/dashboard.js -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-side">
+                        <!-- Quick Actions Panel -->
+                        <div class="action-card">
+                            <h3>Quick Administration Actions</h3>
+                            <div class="action-buttons">
+                                <a href="add-asset.html">
+                                    <i class="fa-solid fa-plus"></i>
+                                    Register Asset
+                                </a>
+                                <a href="allocation.html">
+                                    <i class="fa-solid fa-user-plus"></i>
+                                    Allocate Asset
+                                </a>
+                                <a href="transfer-request.html">
+                                    <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                                    Transfer Asset
+                                </a>
+                                <a href="booking-calendar.html">
+                                    <i class="fa-solid fa-calendar-plus"></i>
+                                    Book Asset
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Upcoming Returns Panel -->
+                        <div class="return-card">
+                            <div class="card-header">
+                                <h3>Upcoming Returns</h3>
+                                <span class="status blue" style="font-size: 11px;">Active Renting</span>
+                            </div>
+                            <div class="return-list">
+                                <!-- Loaded dynamically via js/dashboard.js -->
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+
+                <!-- FOOTER -->
+                <footer class="dashboard-footer">
+                    <p>&copy; 2026 AssetFlow Smart IT Asset Management. All rights reserved.</p>
+                </footer>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <!-- JavaScript System Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+
+</html>
