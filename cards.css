@@ -1,0 +1,165 @@
+/* ==========================================
+   ASSETFLOW CARDS & WIDGETS
+========================================== */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 22px;
+}
+
+.card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    animation: fadeUp 0.5s ease forwards;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--primary);
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.card h4 {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.card h2 {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.card-icon {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--radius-md);
+    font-size: 22px;
+    color: #ffffff;
+}
+
+/* Progress indicator bars in cards */
+.progress {
+    height: 8px;
+    background: var(--border);
+    border-radius: 20px;
+    margin: 18px 0;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    border-radius: 20px;
+    transition: width 0.8s ease;
+}
+
+.card p {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+/* Card color modifiers */
+.blue::before {
+    background: var(--primary);
+}
+
+.blue .card-icon {
+    background: var(--primary);
+}
+
+.blue .progress-bar {
+    background: var(--primary);
+}
+
+.green::before {
+    background: var(--success);
+}
+
+.green .card-icon {
+    background: var(--success);
+}
+
+.green .progress-bar {
+    background: var(--success);
+}
+
+.orange::before {
+    background: var(--warning);
+}
+
+.orange .card-icon {
+    background: var(--warning);
+}
+
+.orange .progress-bar {
+    background: var(--warning);
+}
+
+.red::before {
+    background: var(--danger);
+}
+
+.red .card-icon {
+    background: var(--danger);
+}
+
+.red .progress-bar {
+    background: var(--danger);
+}
+
+.purple::before {
+    background: var(--purple);
+}
+
+.purple .card-icon {
+    background: var(--purple);
+}
+
+.purple .progress-bar {
+    background: var(--purple);
+}
+
+.cyan::before {
+    background: var(--cyan);
+}
+
+.cyan .card-icon {
+    background: var(--cyan);
+}
+
+.cyan .progress-bar {
+    background: var(--cyan);
+}
+
+/* Float hover effect using variables shadow */
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}

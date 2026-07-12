@@ -1,0 +1,207 @@
+/* ==========================================
+   ASSETFLOW TABLE COMPONENTS
+========================================== */
+
+.table-container {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.table-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.table-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+thead {
+    background: var(--bg-main);
+}
+
+th {
+    padding: 14px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+td {
+    padding: 16px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-light);
+}
+
+tbody tr {
+    transition: var(--transition);
+}
+
+tbody tr:hover {
+    background: var(--bg-main);
+}
+
+/* Custom Asset ID highlight */
+td.asset-id {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+/* Status Badges */
+.status {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.status::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.status.green {
+    background: var(--success-light);
+    color: var(--success);
+}
+
+.status.green::before {
+    background: var(--success);
+}
+
+.status.orange {
+    background: var(--warning-light);
+    color: var(--warning);
+}
+
+.status.orange::before {
+    background: var(--warning);
+}
+
+.status.red {
+    background: var(--danger-light);
+    color: var(--danger);
+}
+
+.status.red::before {
+    background: var(--danger);
+}
+
+.status.blue {
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+.status.blue::before {
+    background: var(--primary);
+}
+
+.status.purple {
+    background: var(--purple-light);
+    color: var(--purple);
+}
+
+.status.purple::before {
+    background: var(--purple);
+}
+
+/* Table Action Buttons */
+.actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    font-size: 13px;
+}
+
+.btn-icon:hover {
+    background: var(--primary-light);
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-icon.delete:hover {
+    background: var(--danger-light);
+    color: var(--danger);
+    border-color: var(--danger);
+}
+
+/* Pagination container */
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-light);
+}
+
+.pagination-pages {
+    display: flex;
+    gap: 6px;
+}
+
+.page-link {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text-secondary);
+    transition: var(--transition);
+}
+
+.page-link:hover,
+.page-link.active {
+    background: var(--primary);
+    color: #ffffff;
+    border-color: var(--primary);
+}

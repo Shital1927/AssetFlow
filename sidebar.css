@@ -1,0 +1,96 @@
+/* ==========================================
+   ASSETFLOW SIDEBAR STYLES
+========================================== */
+
+.sidebar {
+    width: 270px;
+    background: var(--sidebar);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    padding: 25px;
+    color: #ffffff;
+    transition: var(--transition);
+    overflow-y: auto;
+    z-index: 999;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 45px;
+}
+
+.logo i {
+    font-size: 32px;
+    color: var(--sidebar-tech);
+}
+
+.logo h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.menu li a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 14px 18px;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: var(--sidebar-text);
+    font-size: 15px;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.menu li a i {
+    width: 24px;
+    text-align: center;
+    font-size: 17px;
+}
+
+.menu li:hover a {
+    background: var(--sidebar-hover);
+    color: #ffffff;
+    transform: translateX(4px);
+}
+
+.menu li.active a {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #ffffff;
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
+}
+
+/* Sidebar toggle collapsing animation details */
+.sidebar.collapsed {
+    width: 90px;
+}
+
+.sidebar.collapsed .logo h2,
+.sidebar.collapsed .menu span {
+    display: none;
+}
+
+.sidebar.collapsed .menu a {
+    justify-content: center;
+    padding: 14px;
+}
+
+.main.expanded {
+    margin-left: 90px;
+    width: calc(100% - 90px);
+}

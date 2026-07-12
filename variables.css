@@ -1,0 +1,60 @@
+/* ==========================================
+   ASSETFLOW CSS VARIABLES
+========================================== */
+
+:root {
+    --primary: #2563EB;
+    --primary-hover: #1D4ED8;
+    --primary-light: #EEF2FF;
+    --secondary: #3B82F6;
+    --success: #22C55E;
+    --success-light: #DCFCE7;
+    --warning: #F59E0B;
+    --warning-light: #FEF3C7;
+    --danger: #EF4444;
+    --danger-light: #FEE2E2;
+    --purple: #8B5CF6;
+    --purple-light: #F5F3FF;
+    --cyan: #06B6D4;
+    --cyan-light: #ECFEFF;
+    
+    --bg-main: #F5F7FB;
+    --bg-card: #ffffff;
+    --text-primary: #0F172A;
+    --text-secondary: #64748B;
+    --text-muted: #94A3B8;
+    
+    --sidebar: #1E293B;
+    --sidebar-hover: #334155;
+    --sidebar-text: #CBD5E1;
+    --sidebar-tech: #60A5FA;
+    
+    --border: #E2E8F0;
+    --border-light: #EDF2F7;
+    --shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+    --shadow-hover: 0 20px 40px rgba(15, 23, 42, 0.12);
+    --radius: 18px;
+    --radius-sm: 10px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    
+    --transition: cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+}
+
+body.dark {
+    --bg-main: #0F172A;
+    --bg-card: #1E293B;
+    --text-primary: #F8FAFC;
+    --text-secondary: #CBD5E1;
+    --text-muted: #64748B;
+    
+    --sidebar: #0D1527;
+    --sidebar-hover: #1E293B;
+    --sidebar-text: #94A3B8;
+    --sidebar-tech: #3B82F6;
+    
+    --border: #334155;
+    --border-light: #1E293B;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.35);
+}

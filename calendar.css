@@ -1,0 +1,141 @@
+/* ==========================================
+   ASSETFLOW CALENDAR STYLES
+========================================== */
+
+.calendar-container {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    padding: 25px;
+    box-shadow: var(--shadow);
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.calendar-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.calendar-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    text-align: center;
+}
+
+.calendar-day-name {
+    padding: 10px 0;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.calendar-day {
+    aspect-ratio: 1.25 / 1;
+    background: var(--bg-main);
+    border-radius: var(--radius-sm);
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: relative;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.calendar-day:hover {
+    border-color: var(--primary);
+    transform: scale(1.02);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.calendar-day.empty {
+    background: transparent;
+    cursor: default;
+    border: none;
+    box-shadow: none;
+}
+
+.calendar-day.empty:hover {
+    transform: none;
+}
+
+.calendar-day.today {
+    background: var(--primary-light);
+    border: 1.5px solid var(--primary);
+}
+
+.calendar-day.today .day-number {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.day-number {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.events-indicator {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-top: 5px;
+    overflow: hidden;
+}
+
+.event-bar {
+    font-size: 10px;
+    padding: 3px 6px;
+    border-radius: 4px;
+    color: white;
+    font-weight: 500;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-align: left;
+}
+
+.event-bar.primary {
+    background: var(--primary);
+}
+
+.event-bar.success {
+    background: var(--success);
+}
+
+.event-bar.warning {
+    background: var(--warning);
+}
+
+.event-bar.danger {
+    background: var(--danger);
+}
+
+.event-bar.purple {
+    background: var(--purple);
+}
+
+.event-bar.cyan {
+    background: var(--cyan);
+}
