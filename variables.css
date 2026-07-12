@@ -1,0 +1,87 @@
+/*====================================================
+        ASSETFLOW DESIGN TOKENS
+        Premium SaaS Variable System
+=====================================================*/
+
+:root {
+    /* ─── Primary Palette ─── */
+    --primary: #2563EB;
+    --primary-hover: #1D4ED8;
+    --primary-light: #DBEAFE;
+    --secondary: #3B82F6;
+
+    /* ─── Semantic Colors ─── */
+    --success: #10B981;
+    --success-light: #D1FAE5;
+    --warning: #F59E0B;
+    --warning-light: #FEF3C7;
+    --danger: #EF4444;
+    --danger-light: #FEE2E2;
+    --purple: #7C3AED;
+    --purple-light: #F5F3FF;
+    --cyan: #06B6D4;
+    --cyan-light: #ECFEFF;
+    --red: #EF4444;
+
+    /* ─── Backgrounds ─── */
+    --bg-main: #F8FAFC;
+    --bg-card: #ffffff;
+
+    /* ─── Text Hierarchy ─── */
+    --text-primary: #0F172A;
+    --text-secondary: #64748B;
+    --text-muted: #94A3B8;
+    --text-main: #0F172A;
+
+    /* ─── Sidebar ─── */
+    --sidebar: rgba(15, 23, 42, .96);
+    --sidebar-hover: rgba(255, 255, 255, .08);
+    --sidebar-text: #CBD5E1;
+    --sidebar-tech: #60A5FA;
+
+    /* ─── Borders & Shadows ─── */
+    --border: #E5E7EB;
+    --border-light: #F1F5F9;
+
+    --shadow:
+        0 6px 18px rgba(15, 23, 42, .05);
+    --shadow-hover:
+        0 25px 60px rgba(15, 23, 42, .12);
+
+    /* ─── Radii ─── */
+    --radius: 22px;
+    --radius-sm: 14px;
+    --radius-md: 18px;
+    --radius-lg: 24px;
+
+    /* ─── Transitions ─── */
+    --transition: .35s cubic-bezier(.4, 0, .2, 1);
+
+    /* ─── Gradients ─── */
+    --gradient-primary: linear-gradient(135deg, #2563EB, #60A5FA);
+    --gradient-success: linear-gradient(135deg, #10B981, #34D399);
+    --gradient-warning: linear-gradient(135deg, #F59E0B, #FBBF24);
+    --gradient-danger: linear-gradient(135deg, #EF4444, #FB7185);
+    --gradient-purple: linear-gradient(135deg, #7C3AED, #A855F7);
+    --gradient-cyan: linear-gradient(135deg, #06B6D4, #67E8F9);
+}
+
+/* ─── Dark Theme Tokens ─── */
+body.dark {
+    --bg-main: #0B1120;
+    --bg-card: #1E293B;
+    --text-primary: #F8FAFC;
+    --text-secondary: #CBD5E1;
+    --text-muted: #64748B;
+    --text-main: #F8FAFC;
+
+    --sidebar: rgba(8, 15, 32, .98);
+    --sidebar-hover: rgba(255, 255, 255, .06);
+    --sidebar-text: #94A3B8;
+    --sidebar-tech: #3B82F6;
+
+    --border: #1E293B;
+    --border-light: #1E293B;
+    --shadow: 0 6px 18px rgba(0, 0, 0, .2);
+    --shadow-hover: 0 25px 60px rgba(0, 0, 0, .35);
+}
