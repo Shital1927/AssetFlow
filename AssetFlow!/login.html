@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssetFlow | Sign In</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/forms.css">
+</head>
+<body class="glass" style="display: flex; align-items: center; justify-content: center; height: 100vh; background: #eef3ff;">
+
+    <div class="auth-container animate-fade-up">
+        
+        <div class="auth-left">
+            <h1 style="color: white;"><i class="fa-solid fa-cubes"></i> AssetFlow</h1>
+            <p>Admin Workspace Access. Monitor hardware health, review system transfer requirements, and deploy allocations quickly.</p>
+            <div style="margin-top: 40px; font-size: 50px; text-align: center; color: rgba(255,255,255,0.25);">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+        </div>
+
+        <div class="auth-right">
+            <h2>Welcome Back</h2>
+            <p class="subtitle">Please enter your workspace details below.</p>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="admin@organization.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="password" placeholder="••••••••" required>
+                        <i class="fa-solid fa-eye toggle-password" id="togglePassword"></i>
+                    </div>
+                </div>
+
+                <div class="auth-row-footer">
+                    <label style="display: flex; align-items: center; gap: 8px; margin-bottom: 0px; cursor: pointer;">
+                        <input type="checkbox" style="width: auto; margin-bottom: 0px;"> Remember session
+                    </label>
+                    <a href="forgot-password.html">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="primary-btn" style="width: 100%;">Access Dashboard</button>
+            </form>
+
+            <div class="auth-form-links">
+                Don't have a workspace? <a href="signup.html">Register Organization</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Inject app-wide script logic -->
+    <script src="js/app.js"></script>
+    <script>
+        // Simple password toggle logic inline for ease
+        const passElem = document.getElementById("password");
+        const toggler = document.getElementById("togglePassword");
+        
+        toggler.addEventListener("click", () => {
+            if (passElem.type === "password") {
+                passElem.type = "text";
+                toggler.classList.replace("fa-eye", "fa-eye-slash");
+            } else {
+                passElem.type = "password";
+                toggler.classList.replace("fa-eye-slash", "fa-eye");
+            }
+        });
+    </script>
+</body>
+</html>

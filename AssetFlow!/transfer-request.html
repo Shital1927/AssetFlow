@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssetFlow | Transfer Requests</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/tables.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-cubes"></i>
+                <h2>AssetFlow</h2>
+            </div>
+            <ul class="menu">
+                <li><a href="dashboard.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
+                <li><a href="assets.html"><i class="fa-solid fa-boxes-stacked"></i><span>Assets</span></a></li>
+                <li class="active"><a href="allocation.html"><i
+                            class="fa-solid fa-arrow-right-arrow-left"></i><span>Allocation</span></a></li>
+                <li><a href="booking.html"><i class="fa-solid fa-calendar-days"></i><span>Bookings</span></a></li>
+                <li><a href="maintenance.html"><i
+                            class="fa-solid fa-screwdriver-wrench"></i><span>Maintenance</span></a></li>
+                <li><a href="organization.html"><i class="fa-solid fa-building"></i><span>Organization</span></a></li>
+                <li><a href="audit.html"><i class="fa-solid fa-clipboard-check"></i><span>Audit</span></a></li>
+                <li><a href="reports.html"><i class="fa-solid fa-chart-column"></i><span>Reports</span></a></li>
+                <li><a href="notifications.html"><i class="fa-solid fa-bell"></i><span>Notifications</span></a></li>
+                <li><a href="activity-logs.html"><i class="fa-solid fa-list-ul"></i><span>Activity Logs</span></a></li>
+                <li><a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
+            </ul>
+        </aside>
+
+        <!-- MAIN -->
+        <div class="main">
+
+            <!-- NAVBAR -->
+            <header class="navbar">
+                <div class="left-nav">
+                    <button id="toggleSidebar"><i class="fa-solid fa-bars"></i></button>
+                    <h1>Transfer Requests</h1>
+                </div>
+                <div class="right-nav">
+                    <button class="icon-btn" id="darkModeBtn"><i class="fa-solid fa-moon"></i></button>
+                    <div class="profile">
+                        <img src="https://i.pravatar.cc/150?img=12" alt="profile">
+                        <div>
+                            <h4>Het Patel</h4>
+                            <p>Administrator</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- CONTENT -->
+            <main class="content">
+
+                <div class="page-header">
+                    <div>
+                        <h2>Asset Transfer Routing</h2>
+                        <p>Route asset handovers between departments or custody holders with sign-off loops.</p>
+                    </div>
+                    <div class="header-buttons">
+                        <button class="primary-btn" onclick="openTransferModal()">
+                            <i class="fa-solid fa-paper-plane"></i> Request Transfer
+                        </button>
+                    </div>
+                </div>
+
+                <!-- TRANSFER REQUESTS LIST -->
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Pending Transfer Approval Queue</h3>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table class="activity-table" id="transfersTable">
+                            <thead>
+                                <tr>
+                                    <th>Request ID</th>
+                                    <th>Asset Detail</th>
+                                    <th>From Custodian</th>
+                                    <th>Target Custodian</th>
+                                    <th>Reason / Comments</th>
+                                    <th>Approval Status</th>
+                                    <th>Operations</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Loaded dynamically from localStorage/mock -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- MODAL FOR TRANSFER REQUEST -->
+                <div id="modalTransfer"
+                    style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.4); justify-content:center; align-items:center;">
+                    <div
+                        style="background:var(--bg-card); width:90%; max-width:550px; padding:35px; border-radius:var(--radius-lg); border:1px solid var(--border); box-shadow:var(--shadow-hover);">
+                        <div
+                            style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                            <h3 style="font-weight:700;">Initiate Custody Transfer</h3>
+                            <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeTransferModal()"></i>
+                        </div>
+                        <form id="transferForm" onsubmit="event.preventDefault(); submitTransferForm()">
+
+                            <div class="form-group">
+                                <label for="selectAllocatedAsset">Choose Allocated Device</label>
+                                <select id="selectAllocatedAsset" onchange="updateCurrentAssignee()" required
+                                    style="margin-bottom:15px;">
+                                    <option value="" disabled selected>No active allocations</option>
+                                </select>
+                            </div>
+
+                            <!-- ReadOnly input showing current assignee -->
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Current Custodian Holder</label>
+                                    <input type="text" id="currentCustodian" readonly
+                                        style="margin-bottom:15px; background:var(--bg-main); font-weight:600;">
+                                </div>
+                                <div class="form-group">
+                                    <label>Current Department</label>
+                                    <input type="text" id="currentCustodianDept" readonly
+                                        style="margin-bottom:15px; background:var(--bg-main); font-weight:600;">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="selectTargetCustodian">Select Target Custodian Recipient</label>
+                                <select id="selectTargetCustodian" required style="margin-bottom:15px;">
+                                    <option value="" disabled selected>Select employee</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="transferReason">Reason for Allocation Shift</label>
+                                <textarea id="transferReason" rows="3"
+                                    placeholder="Explain relocation project or handover needs..."
+                                    style="width:100%; padding:12px; border:1px solid var(--border); border-radius:var(--radius-sm); resize:vertical;"
+                                    required></textarea>
+                            </div>
+
+                            <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:20px;">
+                                <button type="button" class="secondary-btn"
+                                    onclick="closeTransferModal()">Cancel</button>
+                                <button type="submit" class="primary-btn">File Transfer Request</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            initMockTransfers();
+            loadTransfersList();
+            populateTransferSelectors();
+        });
+
+        function initMockTransfers() {
+            if (!localStorage.getItem("af_transfers")) {
+                const initialTransfers = [
+                    { id: "XFR-801", assetId: "AST-1007", assetName: "Cisco Catalyst Switch", fromUser: "Amit Desai", toUser: "Rahul Shah", reason: "Network hardware developer testing environment support.", status: "Pending" }
+                ];
+                localStorage.setItem("af_transfers", JSON.stringify(initialTransfers));
+            }
+        }
+
+        function loadTransfersList() {
+            const transfers = JSON.parse(localStorage.getItem("af_transfers")) || [];
+            const tbody = document.querySelector("#transfersTable tbody");
+            if (!tbody) return;
+
+            tbody.innerHTML = "";
+            if (transfers.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding:30px;">All transfer routines have been resolved.</td></tr>';
+                return;
+            }
+
+            transfers.forEach(t => {
+                let statusColor = "orange";
+                let opButtons = "";
+
+                if (t.status === "Pending") {
+                    statusColor = "orange";
+                    opButtons = `
+                    <button class="primary-btn" style="padding: 6px 12px; font-size:12px; background:#22C55E;" onclick="approveTransfer('${t.id}')">
+                        <i class="fa-solid fa-check"></i> Approve
+                    </button>
+                    <button class="secondary-btn" style="padding: 6px 12px; font-size:12px; color:#EF4444; border-color:#EF4444;" onclick="rejectTransfer('${t.id}')">
+                        <i class="fa-solid fa-xmark"></i> Decline
+                    </button>
+                `;
+                } else if (t.status === "Approved") {
+                    statusColor = "green";
+                    opButtons = `<span style="font-size:12px; color:var(--text-muted);">Signed off</span>`;
+                } else {
+                    statusColor = "red";
+                    opButtons = `<span style="font-size:12px; color:var(--text-muted);">Declined</span>`;
+                }
+
+                tbody.innerHTML += `
+                <tr>
+                    <td class="asset-id" data-label="Request ID">${t.id}</td>
+                    <td data-label="Asset Detail">
+                        <strong>${t.assetName}</strong><br>
+                        <small style="color:var(--text-muted);">${t.assetId}</small>
+                    </td>
+                    <td data-label="From Keeper">${t.fromUser}</td>
+                    <td data-label="Target Recipient">${t.toUser}</td>
+                    <td data-label="Comments">${t.reason}</td>
+                    <td data-label="Approval Status"><span class="status ${statusColor}">${t.status}</span></td>
+                    <td data-label="Operations">
+                        <div style="display:flex; gap:8px;">
+                            ${opButtons}
+                        </div>
+                    </td>
+                </tr>
+            `;
+            });
+        }
+
+        function populateTransferSelectors() {
+            const assets = JSON.parse(localStorage.getItem("af_assets")) || [];
+            const employees = JSON.parse(localStorage.getItem("af_employees")) || [];
+
+            // 1. Allocated assets dropdown
+            const assetSelect = document.getElementById("selectAllocatedAsset");
+            const allocated = assets.filter(a => a.status === "Allocated" || a.status === "allocated");
+
+            assetSelect.innerHTML = '<option value="" disabled selected>Choose Allocated Device</option>';
+            allocated.forEach(a => {
+                assetSelect.innerHTML += `<option value="${a.id}">${a.id} - ${a.name} (${a.assignee})</option>`;
+            });
+
+            // 2. Target Employees dropdown
+            const targetSelect = document.getElementById("selectTargetCustodian");
+            targetSelect.innerHTML = '<option value="" disabled selected>Select employee</option>';
+            employees.forEach(emp => {
+                targetSelect.innerHTML += `<option value="${emp.name}">${emp.name} (${emp.dept})</option>`;
+            });
+        }
+
+        function updateCurrentAssignee() {
+            const assetId = document.getElementById("selectAllocatedAsset").value;
+            const assets = JSON.parse(localStorage.getItem("af_assets")) || [];
+            const matched = assets.find(a => a.id === assetId);
+
+            if (matched) {
+                document.getElementById("currentCustodian").value = matched.assignee;
+                document.getElementById("currentCustodianDept").value = matched.dept || "None";
+            }
+        }
+
+        function openTransferModal() {
+            document.getElementById("modalTransfer").style.display = "flex";
+            populateTransferSelectors();
+        }
+
+        function closeTransferModal() {
+            document.getElementById("modalTransfer").style.display = "none";
+            document.getElementById("transferForm").reset();
+        }
+
+        function submitTransferForm() {
+            const assetId = document.getElementById("selectAllocatedAsset").value;
+            const fromUser = document.getElementById("currentCustodian").value;
+            const toUser = document.getElementById("selectTargetCustodian").value;
+            const reason = document.getElementById("transferReason").value;
+
+            const assets = JSON.parse(localStorage.getItem("af_assets")) || [];
+            const matched = assets.find(a => a.id === assetId);
+
+            if (matched) {
+                const transfers = JSON.parse(localStorage.getItem("af_transfers")) || [];
+                const nextNum = transfers.length ? Math.max(...transfers.map(t => parseInt(t.id.split("-")[1]))) + 1 : 801;
+                const newRequest = {
+                    id: "XFR-" + nextNum,
+                    assetId: assetId,
+                    assetName: matched.name,
+                    fromUser: fromUser,
+                    toUser: toUser,
+                    reason: reason,
+                    status: "Pending"
+                };
+
+                transfers.unshift(newRequest);
+                localStorage.setItem("af_transfers", JSON.stringify(transfers));
+
+                logActivity("Requested Custody Relocation", matched.name, `Filed relocation paperwork for ID ${assetId} from ${fromUser} to ${toUser}.`);
+
+                alert("Transfer request successfully submitted for review!");
+                closeTransferModal();
+                loadTransfersList();
+            }
+        }
+
+        function approveTransfer(requestId) {
+            const transfers = JSON.parse(localStorage.getItem("af_transfers")) || [];
+            const reqIdx = transfers.findIndex(t => t.id === requestId);
+
+            if (reqIdx !== -1) {
+                const request = transfers[reqIdx];
+                const assets = JSON.parse(localStorage.getItem("af_assets")) || [];
+                const assetIdx = assets.findIndex(a => a.id === request.assetId);
+
+                if (assetIdx !== -1) {
+                    const employees = JSON.parse(localStorage.getItem("af_employees")) || [];
+                    const targetEmp = employees.find(e => e.name === request.toUser);
+
+                    if (targetEmp) {
+                        // Update asset custody
+                        assets[assetIdx].assignee = request.toUser;
+                        assets[assetIdx].dept = targetEmp.dept;
+                        assets[assetIdx].date = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+                        localStorage.setItem("af_assets", JSON.stringify(assets));
+
+                        // Approve transfer request record
+                        transfers[reqIdx].status = "Approved";
+                        localStorage.setItem("af_transfers", JSON.stringify(transfers));
+
+                        logActivity("Approved Custody Transfer", assets[assetIdx].name, `Transferred ownership from ${request.fromUser} to ${request.toUser}.`);
+
+                        alert(`Transfer approved! ${request.assetId} is now assigned to ${request.toUser}.`);
+                        loadTransfersList();
+                    }
+                }
+            }
+        }
+
+        function rejectTransfer(requestId) {
+            const transfers = JSON.parse(localStorage.getItem("af_transfers")) || [];
+            const reqIdx = transfers.findIndex(t => t.id === requestId);
+
+            if (reqIdx !== -1) {
+                transfers[reqIdx].status = "Rejected";
+                localStorage.setItem("af_transfers", JSON.stringify(transfers));
+
+                logActivity("Declined Custody Transfer", transfers[reqIdx].assetName, `Rejected relocation of ${transfers[reqIdx].assetId} to ${transfers[reqIdx].toUser}.`);
+
+                alert("Transfer request declined.");
+                loadTransfersList();
+            }
+        }
+    </script>
+</body>
+
+</html>

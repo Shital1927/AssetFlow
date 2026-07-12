@@ -1,0 +1,125 @@
+/*====================================================
+        ASSETFLOW SIDEBAR
+        Floating Glass Navigation
+=====================================================*/
+
+.sidebar {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 280px;
+    height: calc(100vh - 40px);
+    background: var(--sidebar);
+    backdrop-filter: blur(20px);
+    border-radius: 28px;
+    padding: 30px 22px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 30px 60px rgba(15, 23, 42, .25);
+    z-index: 999;
+    transition: var(--transition);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* ─── Logo ─── */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 45px;
+}
+
+.logo i {
+    font-size: 28px;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 4px 8px rgba(37, 99, 235, .3));
+}
+
+.logo h2 {
+    font-size: 26px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -.5px;
+}
+
+/* ─── Menu Links ─── */
+.menu {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.menu li a {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 15px 18px;
+    border-radius: 18px;
+    text-decoration: none;
+    color: var(--sidebar-text);
+    font-size: 15px;
+    font-weight: 600;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.menu li a i {
+    width: 24px;
+    text-align: center;
+    font-size: 18px;
+}
+
+/* Hover glow sweep */
+.menu li a::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, rgba(37, 99, 235, .2), transparent);
+    transition: var(--transition);
+}
+
+.menu li:hover a::before {
+    width: 100%;
+}
+
+.menu li:hover a {
+    transform: translateX(8px);
+    color: #fff;
+}
+
+/* Active state */
+.menu li.active a {
+    background: var(--gradient-primary);
+    color: #fff;
+    box-shadow: 0 15px 30px rgba(37, 99, 235, .35);
+}
+
+/* ─── Collapsed State ─── */
+.sidebar.collapsed {
+    width: 90px;
+    padding: 20px 12px;
+}
+
+.sidebar.collapsed .logo h2,
+.sidebar.collapsed .menu span {
+    display: none;
+}
+
+.sidebar.collapsed .menu a {
+    justify-content: center;
+    padding: 15px;
+}
+
+.main.expanded {
+    margin-left: 130px;
+    width: calc(100% - 130px);
+}

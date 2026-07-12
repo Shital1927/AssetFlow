@@ -1,0 +1,98 @@
+/*====================================================
+        ASSETFLOW REPORTS
+        Premium Analytics Components
+=====================================================*/
+
+.reports-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 28px;
+}
+
+/* ─── Filter Card ─── */
+.report-filter-card {
+    background: var(--bg-card);
+    border-radius: 28px;
+    padding: 28px;
+    border: 1px solid rgba(255, 255, 255, .7);
+    box-shadow: var(--shadow);
+    margin-bottom: 28px;
+    transition: var(--transition);
+}
+
+.report-filter-card:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+.report-export-options {
+    display: flex;
+    justify-content: flex-end;
+    gap: 14px;
+    margin-top: 18px;
+}
+
+/* ─── Stat List ─── */
+.report-stat-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.report-stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background: var(--bg-main);
+    border-radius: 18px;
+    border-left: 5px solid var(--primary);
+    transition: var(--transition);
+}
+
+.report-stat-item:hover {
+    transform: translateX(6px);
+    box-shadow: var(--shadow);
+}
+
+.report-stat-item.success {
+    border-left-color: var(--success);
+}
+
+.report-stat-item.warning {
+    border-left-color: var(--warning);
+}
+
+.report-stat-item.danger {
+    border-left-color: var(--danger);
+}
+
+.report-stat-info h5 {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.report-stat-info h4 {
+    font-size: 20px;
+    color: var(--text-primary);
+    font-weight: 800;
+    margin-top: 4px;
+}
+
+.report-stat-value {
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--primary);
+}
+
+.report-stat-item.success .report-stat-value {
+    color: var(--success);
+}
+
+.report-stat-item.warning .report-stat-value {
+    color: var(--warning);
+}
+
+.report-stat-item.danger .report-stat-value {
+    color: var(--danger);
+}

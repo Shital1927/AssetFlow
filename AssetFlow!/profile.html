@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssetFlow | Administrator Profile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-cubes"></i>
+                <h2>AssetFlow</h2>
+            </div>
+            <ul class="menu">
+                <li><a href="dashboard.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
+                <li><a href="assets.html"><i class="fa-solid fa-boxes-stacked"></i><span>Assets</span></a></li>
+                <li><a href="allocation.html"><i
+                            class="fa-solid fa-arrow-right-arrow-left"></i><span>Allocation</span></a></li>
+                <li><a href="booking.html"><i class="fa-solid fa-calendar-days"></i><span>Bookings</span></a></li>
+                <li><a href="maintenance.html"><i
+                            class="fa-solid fa-screwdriver-wrench"></i><span>Maintenance</span></a></li>
+                <li><a href="organization.html"><i class="fa-solid fa-building"></i><span>Organization</span></a></li>
+                <li><a href="audit.html"><i class="fa-solid fa-clipboard-check"></i><span>Audit</span></a></li>
+                <li><a href="reports.html"><i class="fa-solid fa-chart-column"></i><span>Reports</span></a></li>
+                <li><a href="notifications.html"><i class="fa-solid fa-bell"></i><span>Notifications</span></a></li>
+                <li><a href="activity-logs.html"><i class="fa-solid fa-list-ul"></i><span>Activity Logs</span></a></li>
+                <li class="active"><a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- MAIN -->
+        <div class="main">
+
+            <!-- NAVBAR -->
+            <header class="navbar">
+                <div class="left-nav">
+                    <button id="toggleSidebar"><i class="fa-solid fa-bars"></i></button>
+                    <h1>User Account Settings</h1>
+                </div>
+
+                <div class="right-nav">
+                    <button class="icon-btn" id="darkModeBtn"><i class="fa-solid fa-moon"></i></button>
+                    <div class="profile">
+                        <img src="https://i.pravatar.cc/150?img=12" alt="profile" id="navAvatar">
+                        <div>
+                            <h4 id="navName">Het Patel</h4>
+                            <p>Administrator</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- CONTENT -->
+            <main class="content animate-fade-up">
+
+                <div class="page-header">
+                    <div>
+                        <h2>My Profile Dashboard</h2>
+                        <p>Manage your account settings, workspace password, and profile picture avatar.</p>
+                    </div>
+                </div>
+
+                <!-- PROFILE VIEW GRID -->
+                <div class="profile-layout"
+                    style="display:grid; grid-template-columns: 1fr 2fr; gap:30px; align-items: start;">
+
+                    <!-- Profile Left Card Display -->
+                    <div class="profile-card" style="padding:35px;">
+                        <div class="avatar-upload">
+                            <img src="https://i.pravatar.cc/150?img=12" alt="Avatar" id="cardAvatar"
+                                style="width:110px; height:110px; border-radius:50%; object-fit:cover; border: 4px solid var(--primary);">
+                        </div>
+                        <h2 id="cardName">Het Patel</h2>
+                        <p class="role">System Administrator</p>
+                        <p class="email" id="cardEmail">het.patel@assetflow.com</p>
+
+                        <div class="profile-meta"
+                            style="margin-top:25px; border-top:1px solid var(--border); padding-top:20px; width:100%;">
+                            <div
+                                style="display:flex; justify-content:space-between; margin-bottom:12px; font-size:13px; color:var(--text-secondary);">
+                                <span>Joined on:</span>
+                                <span style="font-weight:600;">12 Jul 2026</span>
+                            </div>
+                            <div
+                                style="display:flex; justify-content:space-between; margin-bottom:12px; font-size:13px; color:var(--text-secondary);">
+                                <span>Workspace Corporate:</span>
+                                <span style="font-weight:600;" id="cardCompany">AssetFlow Corp</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Edit Details Form -->
+                    <div class="profile-details" style="padding:40px;">
+                        <h3 style="font-weight:700; margin-bottom:25px;">Account Specifications</h3>
+
+                        <form id="profileForm" onsubmit="event.preventDefault(); saveProfileDetails()">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="profName">Full Display Name</label>
+                                    <input type="text" id="profName" required style="margin-bottom:15px;">
+                                </div>
+                                <div class="form-group">
+                                    <label for="profEmail">Corporate Email Account</label>
+                                    <input type="email" id="profEmail" required style="margin-bottom:15px;">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="profCompany">Registered Organization</label>
+                                    <input type="text" id="profCompany" required style="margin-bottom:15px;">
+                                </div>
+                                <div class="form-group">
+                                    <label for="profRole">Assigned Security Role</label>
+                                    <input type="text" id="profRole" value="System Administrator" readonly
+                                        style="margin-bottom:15px; background:var(--bg-main);">
+                                </div>
+                            </div>
+
+                            <h3
+                                style="font-weight:700; margin-top:25px; margin-bottom:20px; border-top:1px solid var(--border); padding-top:25px;">
+                                Security / Passcode Updates</h3>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="profOldPass">Old Password</label>
+                                    <input type="password" id="profOldPass" placeholder="••••••••"
+                                        style="margin-bottom:15px;">
+                                </div>
+                                <div class="form-group">
+                                    <label for="profNewPass">New Password</label>
+                                    <input type="password" id="profNewPass" placeholder="••••••••"
+                                        style="margin-bottom:15px;">
+                                </div>
+                            </div>
+
+                            <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:25px;">
+                                <button type="submit" class="primary-btn">
+                                    <i class="fa-solid fa-floppy-disk"></i> Commit Profile Updates
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            loadUserProfile();
+        });
+
+        function loadUserProfile() {
+            const user = JSON.parse(localStorage.getItem("af_user")) || {
+                name: "Het Patel",
+                email: "het.patel@assetflow.com",
+                company: "AssetFlow Corp"
+            };
+
+            // Inputs
+            document.getElementById("profName").value = user.name;
+            document.getElementById("profEmail").value = user.email;
+            document.getElementById("profCompany").value = user.company;
+
+            // Cards display
+            document.getElementById("cardName").textContent = user.name;
+            document.getElementById("cardEmail").textContent = user.email;
+            document.getElementById("cardCompany").textContent = user.company;
+
+            // Nav headers
+            document.getElementById("navName").textContent = user.name;
+        }
+
+        function saveProfileDetails() {
+            const nameVal = document.getElementById("profName").value;
+            const emailVal = document.getElementById("profEmail").value;
+            const companyVal = document.getElementById("profCompany").value;
+            const newPassVal = document.getElementById("profNewPass").value;
+
+            // Sync local storage
+            const user = JSON.parse(localStorage.getItem("af_user")) || {};
+            user.name = nameVal;
+            user.email = emailVal;
+            user.company = companyVal;
+
+            if (newPassVal) {
+                user.password = newPassVal;
+            }
+
+            localStorage.setItem("af_user", JSON.stringify(user));
+
+            logActivity("Updated User Profile Details", "Security Settings", "Updated email and passcode details card.");
+
+            alert("Profile details updated successfully!");
+            window.location.reload();
+        }
+    </script>
+</body>
+
+</html>

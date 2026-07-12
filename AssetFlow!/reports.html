@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssetFlow | Performance Reports</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/tables.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/cards.css">
+    <link rel="stylesheet" href="css/reports.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <!-- ChartJS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-cubes"></i>
+                <h2>AssetFlow</h2>
+            </div>
+            <ul class="menu">
+                <li><a href="dashboard.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
+                <li><a href="assets.html"><i class="fa-solid fa-boxes-stacked"></i><span>Assets</span></a></li>
+                <li><a href="allocation.html"><i
+                            class="fa-solid fa-arrow-right-arrow-left"></i><span>Allocation</span></a></li>
+                <li><a href="booking.html"><i class="fa-solid fa-calendar-days"></i><span>Bookings</span></a></li>
+                <li><a href="maintenance.html"><i
+                            class="fa-solid fa-screwdriver-wrench"></i><span>Maintenance</span></a></li>
+                <li><a href="organization.html"><i class="fa-solid fa-building"></i><span>Organization</span></a></li>
+                <li><a href="audit.html"><i class="fa-solid fa-clipboard-check"></i><span>Audit</span></a></li>
+                <li class="active"><a href="reports.html"><i
+                            class="fa-solid fa-chart-column"></i><span>Reports</span></a></li>
+                <li><a href="notifications.html"><i class="fa-solid fa-bell"></i><span>Notifications</span></a></li>
+                <li><a href="activity-logs.html"><i class="fa-solid fa-list-ul"></i><span>Activity Logs</span></a></li>
+                <li><a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a></li>
+            </ul>
+        </aside>
+
+        <!-- MAIN -->
+        <div class="main">
+
+            <!-- NAVBAR -->
+            <header class="navbar">
+                <div class="left-nav">
+                    <button id="toggleSidebar"><i class="fa-solid fa-bars"></i></button>
+                    <h1>Analytics Reports</h1>
+                </div>
+
+                <div class="right-nav">
+                    <button class="icon-btn" id="darkModeBtn"><i class="fa-solid fa-moon"></i></button>
+                    <div class="profile">
+                        <img src="https://i.pravatar.cc/150?img=12" alt="profile">
+                        <div>
+                            <h4>Het Patel</h4>
+                            <p>Administrator</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- CONTENT -->
+            <main class="content">
+
+                <div class="page-header">
+                    <div>
+                        <h2>Asset Analytics & Data Export</h2>
+                        <p>Analyze hardware investments, category distributions, and export tabular CSV logs.</p>
+                    </div>
+                </div>
+
+                <!-- CHARTS ROW -->
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:25px; margin-bottom:30px;">
+                    <div
+                        style="background:var(--bg-card); padding:25px; border-radius:var(--radius-lg); border:1px solid var(--border);">
+                        <h3 style="font-weight:700; margin-bottom:20px;">Procurement Expenditures By Category</h3>
+                        <div style="height:250px; display:flex; justify-content:center; align-items:center;">
+                            <canvas id="categoryCostChart"></canvas>
+                        </div>
+                    </div>
+                    <div
+                        style="background:var(--bg-card); padding:25px; border-radius:var(--radius-lg); border:1px solid var(--border);">
+                        <h3 style="font-weight:700; margin-bottom:20px;">Operational Status Allocation</h3>
+                        <div style="height:250px; display:flex; justify-content:center; align-items:center;">
+                            <canvas id="statusDistributionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CUSTOM REPORT BUILDER -->
+                <div
+                    style="background:var(--bg-card); padding:30px; border-radius:var(--radius-lg); border:1px solid var(--border); margin-bottom:30px;">
+                    <h3 style="font-weight:700; margin-bottom:20px;">Report Filter Query Generator</h3>
+
+                    <form id="builderForm" onsubmit="event.preventDefault(); generateAssetReport()">
+                        <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:20px; align-items:end;">
+                            <div class="form-group">
+                                <label for="repDept">Selected Department</label>
+                                <select id="repDept">
+                                    <option value="All">All Departments</option>
+                                    <option value="Development">Development</option>
+                                    <option value="Quality Assurance">Quality Assurance</option>
+                                    <option value="Marketing">Marketing</option>
+                                    <option value="Human Resources">Human Resources</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="repCategory">Selected Category</label>
+                                <select id="repCategory">
+                                    <option value="All">All Categories</option>
+                                    <option value="Laptops">Laptops</option>
+                                    <option value="Monitors">Monitors</option>
+                                    <option value="Networking">Networking</option>
+                                    <option value="Furniture">Furniture</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="primary-btn" style="justify-content:center; height:46px;">
+                                <i class="fa-solid fa-arrows-spin"></i> Generate Sheet
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- DYNAMIC RESULTS SHEET -->
+                    <div id="reportSheetContainer"
+                        style="display:none; margin-top:35px; border-top:1px solid var(--border); padding-top:25px;">
+                        <div
+                            style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                            <h4 style="font-weight:700;">Query Results Ledger (<span id="resultsCount">0</span> matched)
+                            </h4>
+                            <button class="secondary-btn" style="color:var(--primary); border-color:var(--primary);"
+                                onclick="exportReportCSV()">
+                                <i class="fa-solid fa-file-csv"></i> Export CSV Sheet
+                            </button>
+                        </div>
+                        <div style="overflow-x: auto;">
+                            <table class="activity-table" id="reportResultTable">
+                                <thead>
+                                    <tr>
+                                        <th>Asset ID</th>
+                                        <th>Asset Name</th>
+                                        <th>Category</th>
+                                        <th>Custodian Assignee</th>
+                                        <th>Department</th>
+                                        <th>Status State</th>
+                                        <th>Invoice Cost</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Generated from JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        let categoryCostChart = null;
+        let statusDistributionChart = null;
+        let currentlyLoadedQuery = [];
+
+        document.addEventListener("DOMContentLoaded", () => {
+            renderReportCharts();
+        });
+
+        function renderReportCharts() {
+            const assets = JSON.parse(localStorage.getItem("af_assets")) || [];
+
+            // 1. Math for Category procurement expenditures
+            const categories = [...new Set(assets.map(a => a.category))];
+            const categoryCosts = categories.map(cat => {
+                return assets.filter(a => a.category === cat).reduce((sum, a) => sum + parseFloat(a.cost || 0), 0);
+            });
+
+            // 2. Math for Operational states
+            const statuses = ["Available", "Allocated", "Maintenance", "Reserved"];
+            const statusCounts = statuses.map(s => assets.filter(a => a.status === s).length);
+
+            // Render chart 1
+            const ctx1 = document.getElementById("categoryCostChart").getContext("2d");
+            categoryCostChart = new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: categories,
+                    datasets: [{
+                        label: 'Spent Investment ($)',
+                        data: categoryCosts,
+                        backgroundColor: ['#2563EB', '#3B82F6', '#60A5FA', '#93C5FD'],
+                        borderRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+
+            // Render chart 2
+            const ctx2 = document.getElementById("statusDistributionChart").getContext("2d");
+            statusDistributionChart = new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: statuses,
+                    datasets: [{
+                        data: statusCounts,
+                        backgroundColor: ['#22C55E', '#2563EB', '#EF4444', '#F59E0B']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'right' }
+                    }
+                }
+            });
+        }
+
+        function generateAssetReport() {
+            const selectedDept = document.getElementById("repDept").value;
+            const selectedCategory = document.getElementById("repCategory").value;
+
+            const assets = JSON.parse(localStorage.getItem("af_assets")) || [];
+
+            currentlyLoadedQuery = assets.filter(a => {
+                const matchesDept = (selectedDept === "All") || (a.dept === selectedDept);
+                const matchesCategory = (selectedCategory === "All") || (a.category === selectedCategory);
+                return matchesDept && matchesCategory;
+            });
+
+            // Display results
+            document.getElementById("reportSheetContainer").style.display = "block";
+            document.getElementById("resultsCount").textContent = currentlyLoadedQuery.length;
+
+            const tbody = document.querySelector("#reportResultTable tbody");
+            tbody.innerHTML = "";
+
+            if (currentlyLoadedQuery.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding:30px;">No matching assets found for this filter parameters combination.</td></tr>';
+                return;
+            }
+
+            currentlyLoadedQuery.forEach(a => {
+                let statusClass = "blue";
+                if (a.status === "Available") statusClass = "green";
+                if (a.status === "Maintenance") statusClass = "red";
+                if (a.status === "Reserved") statusClass = "orange";
+
+                tbody.innerHTML += `
+                <tr>
+                    <td class="asset-id">${a.id}</td>
+                    <td><strong>${a.name}</strong></td>
+                    <td>${a.category}</td>
+                    <td>${a.assignee || "Shelf"}</td>
+                    <td>${a.dept || "None"}</td>
+                    <td><span class="status ${statusClass}">${a.status}</span></td>
+                    <td>$${a.cost.toLocaleString()}</td>
+                </tr>
+            `;
+            });
+        }
+
+        function exportReportCSV() {
+            if (currentlyLoadedQuery.length === 0) return;
+
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "Asset ID,Asset Name,Category,Custodian Assignee,Department,Status,Cost\n";
+
+            currentlyLoadedQuery.forEach(a => {
+                const row = [
+                    a.id,
+                    a.name.replace(/,/g, ""), // escape commas
+                    a.category,
+                    a.assignee || "Shelf",
+                    a.dept || "None",
+                    a.status,
+                    a.cost
+                ].join(",");
+                csvContent += row + "\n";
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `AssetFlow_Report_${new Date().toISOString().split('T')[0]}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+
+</html>

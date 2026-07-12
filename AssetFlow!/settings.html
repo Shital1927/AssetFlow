@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssetFlow | Workspace Settings</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-cubes"></i>
+                <h2>AssetFlow</h2>
+            </div>
+            <ul class="menu">
+                <li><a href="dashboard.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a></li>
+                <li><a href="assets.html"><i class="fa-solid fa-boxes-stacked"></i><span>Assets</span></a></li>
+                <li><a href="allocation.html"><i
+                            class="fa-solid fa-arrow-right-arrow-left"></i><span>Allocation</span></a></li>
+                <li><a href="booking.html"><i class="fa-solid fa-calendar-days"></i><span>Bookings</span></a></li>
+                <li><a href="maintenance.html"><i
+                            class="fa-solid fa-screwdriver-wrench"></i><span>Maintenance</span></a></li>
+                <li><a href="organization.html"><i class="fa-solid fa-building"></i><span>Organization</span></a></li>
+                <li><a href="audit.html"><i class="fa-solid fa-clipboard-check"></i><span>Audit</span></a></li>
+                <li><a href="reports.html"><i class="fa-solid fa-chart-column"></i><span>Reports</span></a></li>
+                <li><a href="notifications.html"><i class="fa-solid fa-bell"></i><span>Notifications</span></a></li>
+                <li><a href="activity-logs.html"><i class="fa-solid fa-list-ul"></i><span>Activity Logs</span></a></li>
+                <li class="active"><a href="settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- MAIN -->
+        <div class="main">
+
+            <!-- NAVBAR -->
+            <header class="navbar">
+                <div class="left-nav">
+                    <button id="toggleSidebar"><i class="fa-solid fa-bars"></i></button>
+                    <h1>Workspace Configuration</h1>
+                </div>
+
+                <div class="right-nav">
+                    <button class="icon-btn" id="darkModeBtn"><i class="fa-solid fa-moon"></i></button>
+                    <div class="profile">
+                        <img src="https://i.pravatar.cc/150?img=12" alt="profile">
+                        <div>
+                            <h4>Het Patel</h4>
+                            <p>Administrator</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- CONTENT -->
+            <main class="content">
+
+                <div class="page-header">
+                    <div>
+                        <h2>System Control Center</h2>
+                        <p>Modify UI layout flags, manage depreciation options, and verify mock database states.</p>
+                    </div>
+                </div>
+
+                <!-- SETTINGS WRAPPER -->
+                <div style="display:flex; flex-direction:column; gap:25px;">
+
+                    <!-- GENERAL PARAMETERS -->
+                    <div
+                        style="background:var(--bg-card); padding:30px; border-radius:var(--radius-lg); border:1px solid var(--border);">
+                        <h3
+                            style="font-weight:700; margin-bottom:20px; border-bottom:1px solid var(--border); padding-bottom:10px;">
+                            <i class="fa-solid fa-sliders" style="color:var(--primary); margin-right:8px;"></i> General
+                            Setup Customization
+                        </h3>
+
+                        <form id="settingsGeneralForm" onsubmit="event.preventDefault(); saveGeneralSettings()">
+                            <div class="form-row" style="margin-bottom:15px;">
+                                <div class="form-group">
+                                    <label for="setCurrency">Global Monetary Symbol</label>
+                                    <select id="setCurrency">
+                                        <option value="USD">USD ($) United States Dollar</option>
+                                        <option value="INR">INR (₹) Indian Rupee</option>
+                                        <option value="EUR">EUR (€) Euro</option>
+                                        <option value="GBP">GBP (£) British Pound</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="setTimezone">Local Time Zone Representation</label>
+                                    <select id="setTimezone">
+                                        <option value="UTC">UTC / GMT Universal Coordinated Time</option>
+                                        <option value="IST">IST Indian Standard Time (GMT+5:30)</option>
+                                        <option value="EST">EST Eastern Standard Time (GMT-5)</option>
+                                        <option value="PST">PST Pacific Standard Time (GMT-8)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="margin-bottom:20px;">
+                                <label
+                                    style="display:flex; align-items:center; gap:10px; cursor:pointer; font-weight:500;">
+                                    <input type="checkbox" id="setAutoDepreciation" checked
+                                        style="width:16px; height:16px;">
+                                    Enable calculated annual depreciation schedule on reports (15% hardware baseline
+                                    scale)
+                                </label>
+                            </div>
+
+                            <div style="display:flex; justify-content:flex-end;">
+                                <button type="submit" class="primary-btn">Save Configurations</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- DATABASE MANAGER BACKUPS -->
+                    <div
+                        style="background:var(--bg-card); padding:30px; border-radius:var(--radius-lg); border:1px solid var(--border);">
+                        <h3
+                            style="font-weight:700; margin-bottom:20px; border-bottom:1px solid var(--border); padding-bottom:10px;">
+                            <i class="fa-solid fa-database" style="color:#EF4444; margin-right:8px;"></i> LocalStorage
+                            Database Operations
+                        </h3>
+                        <p style="font-size:13.5px; color:var(--text-secondary); margin-bottom:20px; line-height:1.6;">
+                            Since AssetFlow stores all assets, allocations, tickets, and bookings mock registers in the
+                            browser's <code>localStorage</code> database, you can export the database state as a JSON
+                            template copy, or overwrite/reset to factory default values.
+                        </p>
+
+                        <div style="display:flex; gap:15px; flex-wrap:wrap; margin-bottom: 25px;">
+                            <button class="primary-btn" onclick="exportFullDatabase()">
+                                <i class="fa-solid fa-download"></i> Backup DB Copy (JSON)
+                            </button>
+                            <button class="secondary-btn" onclick="triggerImportArea()">
+                                <i class="fa-solid fa-upload"></i> Restore DB Backup
+                            </button>
+                            <button class="secondary-btn" style="color:#EF4444; border-color:#EF4444;"
+                                onclick="triggerDatabaseReset()">
+                                <i class="fa-solid fa-trash-can"></i> Factory Reset DB
+                            </button>
+                        </div>
+
+                        <!-- IMPORT TEXTAREA AREA (HIDDEN BY DEFAULT) -->
+                        <div id="importArea"
+                            style="display:none; border-top:1px dashed var(--border); padding-top:20px;">
+                            <h4 style="font-weight:600; margin-bottom:12px;">Paste JSON Backup Payload</h4>
+                            <textarea id="importDBPayload" rows="6" placeholder="Paste JSON here..."
+                                style="width:100%; border:1px solid var(--border); font-family:monospace; font-size:12px; padding:12px; border-radius:var(--radius-sm); margin-bottom:15px; background:var(--bg-main); color:var(--text-main);"></textarea>
+
+                            <div style="display:flex; justify-content:flex-end; gap:10px;">
+                                <button class="secondary-btn"
+                                    onclick="document.getElementById('importArea').style.display='none'">Cancel</button>
+                                <button class="primary-btn" style="background:#22C55E; border-color:#22C55E;"
+                                    onclick="completeImportBackup()">
+                                    Verify & Restore Backup
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            loadSettingsChoices();
+        });
+
+        function loadSettingsChoices() {
+            const config = JSON.parse(localStorage.getItem("af_settings_config")) || {
+                currency: "USD",
+                timezone: "UTC",
+                depreciation: true
+            };
+
+            document.getElementById("setCurrency").value = config.currency;
+            document.getElementById("setTimezone").value = config.timezone;
+            document.getElementById("setAutoDepreciation").checked = config.depreciation;
+        }
+
+        function saveGeneralSettings() {
+            const currency = document.getElementById("setCurrency").value;
+            const timezone = document.getElementById("setTimezone").value;
+            const depreciation = document.getElementById("setAutoDepreciation").checked;
+
+            const config = { currency, timezone, depreciation };
+            localStorage.setItem("af_settings_config", JSON.stringify(config));
+
+            logActivity("Saved System Configuration Parameters", "Settings", "Updated currency code and timezone configs.");
+
+            alert("System configuration successfully saved!");
+        }
+
+        function exportFullDatabase() {
+            const fullDB = {
+                assets: JSON.parse(localStorage.getItem("af_assets")) || [],
+                bookings: JSON.parse(localStorage.getItem("af_bookings")) || [],
+                maintenance: JSON.parse(localStorage.getItem("af_maintenance")) || [],
+                employees: JSON.parse(localStorage.getItem("af_employees")) || [],
+                activities: JSON.parse(localStorage.getItem("af_activity_logs")) || [],
+                user: JSON.parse(localStorage.getItem("af_user")) || {}
+            };
+
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(fullDB, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", "AssetFlow_Backup_Database.json");
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+        }
+
+        function triggerImportArea() {
+            document.getElementById("importArea").style.display = "block";
+            document.getElementById("importDBPayload").focus();
+        }
+
+        function completeImportBackup() {
+            const payloadInput = document.getElementById("importDBPayload").value.trim();
+            if (!payloadInput) {
+                alert("Payload empty.");
+                return;
+            }
+
+            try {
+                const data = JSON.parse(payloadInput);
+
+                // Validate basic structure
+                if (data.assets && data.employees) {
+                    if (confirm("This will overwrite your active database with the backup template data. All current changes will be replaced. Proceed?")) {
+                        localStorage.setItem("af_assets", JSON.stringify(data.assets));
+                        localStorage.setItem("af_bookings", JSON.stringify(data.bookings || []));
+                        localStorage.setItem("af_maintenance", JSON.stringify(data.maintenance || []));
+                        localStorage.setItem("af_employees", JSON.stringify(data.employees));
+                        localStorage.setItem("af_activity_logs", JSON.stringify(data.activities || []));
+                        if (data.user) {
+                            localStorage.setItem("af_user", JSON.stringify(data.user));
+                        }
+
+                        alert("System workspace restore completed successfully. The application will reload.");
+                        window.location.href = "dashboard.html";
+                    }
+                } else {
+                    alert("Invalid backup JSON format. Missing assets or employees array payload.");
+                }
+            } catch (e) {
+                alert("Error parsing JSON input: " + e.message);
+            }
+        }
+
+        function triggerDatabaseReset() {
+            if (!confirm("CRITICAL WARNING: This will permanently delete your changes and wipe the browser localstorage databases for AssetFlow. Restoring default mock databases will reload page. Proceed?")) return;
+
+            // Clear keys
+            localStorage.removeItem("af_assets");
+            localStorage.removeItem("af_bookings");
+            localStorage.removeItem("af_maintenance");
+            localStorage.removeItem("af_employees");
+            localStorage.removeItem("af_activity_logs");
+            localStorage.removeItem("af_alerts");
+            localStorage.removeItem("af_transfers");
+
+            // This will trigger initialization scripts inside js/app.js upon next load
+            alert("LocalStorage database wiped clean. Reloading systems...");
+            window.location.href = "dashboard.html";
+        }
+    </script>
+</body>
+
+</html>
